@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PCC-Onboarding\\PCC-Onboarding.csproj",
-      "projectName": "PCC-Onboarding",
-      "projectPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PCC-Onboarding\\PCC-Onboarding.csproj",
+      "projectUniqueName": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\PccOnboarding.csproj",
+      "projectName": "PccOnboarding",
+      "projectPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\PccOnboarding.csproj",
       "packagesPath": "C:\\Users\\MosheYehudaSznicer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PCC-Onboarding\\obj\\",
+      "outputPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MosheYehudaSznicer\\AppData\\Roaming\\NuGet\\NuGet.Config",
