@@ -26,4 +26,6 @@ var afterUpdate = new UpdateClientsInfoTableStep().Execute(afterAddingMatched, d
 var onlyNewClients = new AddNewClientsStep().Execute(afterUpdate, dbType, ourFacId);
 //Adds the new clients to the pccPatientsClients table
 new AddUnmatchedToPccClientsStep().Execute(onlyNewClients, dbType);
-LogFile.WriteWithBrake($"EndTime: {DateTime.Now}");
+LogFile.WriteWithBreak($"EndTime: {DateTime.Now}");
+
+

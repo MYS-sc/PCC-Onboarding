@@ -32,7 +32,7 @@ public class GetPccDataStep
         _accessToken = await BearerToken.Get();
         LogFile.Write($"Getting All Patients from PCC...\n");
         await _getPatient();
-        LogFile.WriteWithBrake($"Got All Patients: {_patientsList.Count(),-10}");
+        LogFile.WriteWithBreak($"Got All Patients: {_patientsList.Count(),-10}");
         return _patientsList;
     }
     private async Task<string> _getPatient()

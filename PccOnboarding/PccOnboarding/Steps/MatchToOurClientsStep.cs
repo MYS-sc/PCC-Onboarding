@@ -12,8 +12,11 @@ public class MatchToOurClientsStep
         var matched = 0;
         using (var context = (DbContext)Activator.CreateInstance(db))
         {
+            //Gets all patients from the ClientsInfo table
             var ourClients = context.Set<ClientInfoTable>().ToList();
+            //Matches the PatienstList to ClientsInfo table by FistName LastName And DateOfBirth and returns
 
+            //This first check is if the is a middel name to only get the first name 
             var patientsCheckOne = from Pcc in patientsList
                                    join OC in ourClients
                                    on new { F = Pcc.FirstName?.Trim().TrimEnd().TrimStart(), L = Pcc.LastName, D = Pcc.BirthDate == null ? Convert.ToDateTime("1/1/1990").ToString() : Convert.ToDateTime(Pcc.BirthDate).ToString() }
@@ -31,6 +34,7 @@ public class MatchToOurClientsStep
                                        Pcc.FacId,
                                        ourId = Pcc.ourId ?? subgroup?.ClientId,
                                    };
+            //This second check is if the middel name is first only get the first name 
             var patientsCheckThree = from Pcc in patientsCheckOne
                                      join OC in ourClients
                                      on new { F = Pcc.FirstName?.Trim().TrimEnd().TrimStart(), L = Pcc.LastName, D = Pcc.BirthDate == null ? Convert.ToDateTime("1/1/1990").ToString() : Convert.ToDateTime(Pcc.BirthDate).ToString() }
@@ -56,7 +60,7 @@ public class MatchToOurClientsStep
                 }
             }
             LogFile.Write($"Found Matched To ClientsInfoTable: {matched}");
-            LogFile.WriteWithBrake($"Found Unmatched To ClientsInfoTable: {patientsCheckThree.Count() - matched}");
+            LogFile.WriteWithBreak($"Found Unmatched To ClientsInfoTable: {patientsCheckThree.Count() - matched}");
 
             return patientsCheckThree;
         }

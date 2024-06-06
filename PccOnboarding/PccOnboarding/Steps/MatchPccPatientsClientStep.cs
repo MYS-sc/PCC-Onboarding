@@ -11,7 +11,9 @@ public class MatchPccPatientsClientStep
         LogFile.Write("Matching to PccPatientsClients Table...\n");
         using (var context = (DbContext)Activator.CreateInstance(db))
         {
+            //Gets all the patients from the pccPatientsClientsTable
             var data = context.Set<PccPatientsClientTable>().ToList();
+            //Matches the pccData by firstname lastName datOfBirth OrgUuig FacilityId PccPatientId and returns only the ones that don't match 
             var unmatchedData = from p in patientsList
                                 join d in data
                                     on new { F = p.FirstName, L = p.LastName, O = p.OrgUuid, FI = p.FacId, D = Convert.ToDateTime(p.BirthDate).ToString(), PI = p.PatientId.ToString() }
@@ -33,7 +35,7 @@ public class MatchPccPatientsClientStep
                                     ourId = null
 
                                 };
-            LogFile.WriteWithBrake($"Found unmatched to PccPatientsClient Table: {unmatchedData.Count(),-10}");
+            LogFile.WriteWithBreak($"Found unmatched to PccPatientsClient Table: {unmatchedData.Count(),-10}");
             return unmatchedData;
         }
     }

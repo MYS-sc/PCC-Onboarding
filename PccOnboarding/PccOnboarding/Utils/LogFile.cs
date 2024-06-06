@@ -9,7 +9,7 @@ static class LogFile
         Console.WriteLine(message);
         file.Close();
     }
-    public static void WriteWithBrake(string message)
+    public static void WriteWithBreak(string message)
     {
         StreamWriter file = new StreamWriter(@"C:\Users\MosheYehudaSznicer\Desktop\PccOnboardingLog.txt", true);
         file.WriteLine(message);
@@ -18,7 +18,7 @@ static class LogFile
         Console.WriteLine("-----------------------------------------------------");
         file.Close();
     }
-    public static void Brake()
+    public static void BreakLine()
     {
         StreamWriter file = new StreamWriter(@"C:\Users\MosheYehudaSznicer\Desktop\PccOnboardingLog.txt", true);
         file.WriteLine("-----------------------------------------------------");

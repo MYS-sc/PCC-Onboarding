@@ -38,7 +38,7 @@ public class UpdateClientsInfoTableStep
                 //--Logging out all the changes to the console
                 LogFile.Write($"Updated - ID: {client.ourId,-10} firstName: {client.FirstName,-10} lastname: {client.LastName,-10} FromFacility: {oldFac,-5} ToFacility: {changed.FacilityId,-5}");
             }
-            LogFile.Brake();
+            LogFile.BreakLine();
         }
         return patientsList;
     }

@@ -42,7 +42,7 @@ public class AddNewClientsStep
                                                     }).ToList();
                 LogFile.Write($"Added To: ClientsInfoTable OurId: {patient.ClientId,-10} FirstName: {patient.OurFirstName,-15} LastName: {patient.LastName,-10} FacilityId: {patient.FacilityId,-10}");
             }
-            LogFile.Brake();
+            LogFile.BreakLine();
         }
 
         return notMatched;

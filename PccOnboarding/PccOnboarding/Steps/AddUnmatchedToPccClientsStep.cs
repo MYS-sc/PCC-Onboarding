@@ -31,7 +31,7 @@ public class AddUnmatchedToPccClientsStep
                 LogFile.Write($"Added PccPatientsClients - FirstName: {match.FirstName,-15} LastName: {match.LastName,-15} Id:{match.ourId,-10} pccId:{match.PatientId,-10}");
 
             }
-            LogFile.Brake();
+            LogFile.BreakLine();
         }
     }
 }
