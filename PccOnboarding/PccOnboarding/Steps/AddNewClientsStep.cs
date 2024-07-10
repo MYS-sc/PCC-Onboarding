@@ -7,13 +7,13 @@ namespace PccOnboarding.Steps;
 
 public class AddNewClientsStep
 {
-    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, Type db, int? ourFacId)
+    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, DbContext context, int? ourFacId)
     {
         LogFile.Write("Adding new Clients...\n");
         var notMatched = from patient in patientsList
                          where patient.ourId == null
                          select patient;
-        using (var context = (DbContext)Activator.CreateInstance(db))
+        //using (var context = (DbContext)Activator.CreateInstance(db))
         {
             foreach (var nm in notMatched)
             {
@@ -32,7 +32,7 @@ public class AddNewClientsStep
 
                 };
                 var table = context.Set<ClientInfoTable>().Add(patient);
-                context.SaveChanges();
+                //context.SaveChanges();
                 //get the new id that was just assigned to the new clientinfo input aka ourIdma
                 patientsList = patientsList.Select(p =>
                                                     {

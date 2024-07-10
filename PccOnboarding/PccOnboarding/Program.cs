@@ -7,13 +7,29 @@ using PccOnboarding.Context;
 using PccOnboarding.Models.PCC;
 using PccOnboarding.Steps;
 using PccWebhook.Utils;
+
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+
+var serviceCollection = new ServiceCollection();
+
+serviceCollection.AddContexts();
+serviceCollection.AddScoped<IContextFactory, ContextFactory>();
+
+var serviceProvider = serviceCollection.BuildServiceProvider();
+
+
+
 string orgId = "785e6a7d-206b-4421-b037-7a205c1d8e28";
 int facId = 22;
 string state = "PA";
 
-var dbType = await GetContext.Get(state);
+//var dbType = await GetContext.Get(state);
+DbContext dbType = serviceProvider.GetRequiredService<IContextFactory>().GetContext("PA");
 
-var ourFacId = await new OurFacilityId().Get(orgId, state, facId);
+
+var ourFacId = await new OurFacilityId().Get(orgId, state, facId,dbType);
 LogFile.Write($"StartTime: {DateTime.Now}");
 //Gets the patients from the pcc api
 var patients = await new GetPccDataStep(orgId, facId).Execute();

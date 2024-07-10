@@ -2788,6 +2788,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.6",
+      "Microsoft.Extensions.DependencyInjection >= 8.0.0",
       "Newtonsoft.Json >= 13.0.3"
     ]
   },
@@ -2797,11 +2798,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\PccOnboarding.csproj",
+      "projectUniqueName": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\pcconboarding\\PccOnboarding.csproj",
       "projectName": "PccOnboarding",
-      "projectPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\PccOnboarding.csproj",
+      "projectPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\pcconboarding\\PccOnboarding.csproj",
       "packagesPath": "C:\\Users\\MosheYehudaSznicer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\obj\\",
+      "outputPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\pcconboarding\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MosheYehudaSznicer\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2838,6 +2839,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[8.0.6, )"
+          },
+          "Microsoft.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[8.0.0, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

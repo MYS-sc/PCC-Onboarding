@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace PccOnboarding.Context
 {
-    public class TSC_NH_Context : DbContext
+
+    public class TSC_NH_Context(DbContextOptions<TSC_NH_Context> options) : DbContext(options)
     {
 
         public DbSet<ClientInfoTable> ClientInfoTable { get; set; }
@@ -17,14 +18,11 @@ namespace PccOnboarding.Context
         public DbSet<FacilitiesTable> FacilitiesTable { get; set; }
         public DbSet<PccFacilitiesTable> PccFacilitiesTable { get; set; }
         public DbSet<PccAdtTable> PccAdtTable { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Data Source=166.78.211.31,61433;Initial Catalog=TSC_NH;User ID=Appsheet_user;Password=AS3218pt;Encrypt=False;");
-            }
-        }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }

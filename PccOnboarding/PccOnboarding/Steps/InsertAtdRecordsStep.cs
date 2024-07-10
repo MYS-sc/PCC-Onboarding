@@ -5,19 +5,18 @@ namespace PccOnboarding;
 
 public class InsertAtdRecordsStep
 {
-    public void Execute(List<PccAdtTable> adtList, Type db)
+    public void Execute(List<PccAdtTable> adtList, DbContext context)
     {
-        using (var context = (DbContext)Activator.CreateInstance(db))
+
+        foreach (var adt in adtList)
         {
-            foreach (var adt in adtList)
-            {
 
 
 
-                context.Set<PccAdtTable>().Add(adt);
-                context.SaveChanges();
+            context.Set<PccAdtTable>().Add(adt);
+            //context.SaveChanges();
 
-            }
         }
+
     }
 }

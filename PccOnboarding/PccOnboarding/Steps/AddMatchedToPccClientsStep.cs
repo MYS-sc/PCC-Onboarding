@@ -7,11 +7,11 @@ namespace PccOnboarding.Steps;
 
 public class AddMatchedToPccClientsStep
 {
-    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, Type db, int? facId)
+    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, DbContext context, int? facId)
     {
         LogFile.Write("Adding To PccPatientsClientsTable...\n");
         var matched = patientsList.Where(p => p.ourId != null);
-        using (var context = (DbContext)Activator.CreateInstance(db))
+
         {
             foreach (var match in matched)
             {
@@ -27,7 +27,7 @@ public class AddMatchedToPccClientsStep
 
                 };
                 context?.Set<PccPatientsClientTable>().Add(pccClient);
-                context?.SaveChanges();
+                //context?.SaveChanges();
                 //Console.WriteLine(pccClient.PccClientId);
                 LogFile.Write($"Added PccPatientsClients - FirstName: {match.FirstName,-15} LastName: {match.LastName,-15} Id:{match.ourId,-10} pccId:{match.PatientId,-10}");
             }

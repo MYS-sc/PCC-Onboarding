@@ -7,7 +7,7 @@ namespace PccOnboarding.Steps;
 
 public class UpdateClientsInfoTableStep
 {
-    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, Type db, int? ourFacilityId)
+    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, DbContext context, int? ourFacilityId)
     {
         LogFile.Write("Updating PatientsInfoTable...\n");
         //--Gets only the clients that we matched to our clients info table and now have an ClientId
@@ -16,7 +16,7 @@ public class UpdateClientsInfoTableStep
                             select patient;
 
         //--Change the facility id to the one that he is in now
-        using (var context = (DbContext)Activator.CreateInstance(db))
+        //using (var context = (DbContext)Activator.CreateInstance(db))
         {
             foreach (var client in ourPccClients)
             {
@@ -30,7 +30,7 @@ public class UpdateClientsInfoTableStep
                 response.FacilityId = ourFacilityId;
 
                 //--Saving the changes
-                context.SaveChanges();
+                //context.SaveChanges();
 
                 //--Quering the database after to check if it was changed
                 var changed = context.Set<ClientInfoTable>().First(c => c.ClientId == client.ourId);

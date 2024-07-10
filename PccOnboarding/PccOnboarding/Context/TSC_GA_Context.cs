@@ -8,22 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 namespace PccOnboarding.Context
 {
-    public class TSC_GA_Context : DbContext
+
+    public class TSC_GA_Context(DbContextOptions<TSC_GA_Context> options)
+        : DbContext(options)
     {
+
 
         public DbSet<ClientInfoTable> ClientInfoTable { get; set; }
         public DbSet<PccPatientsClientTable> PccPatientsClientTable { get; set; }
         public DbSet<FacilitiesTable> FacilitiesTable { get; set; }
         public DbSet<PccFacilitiesTable> PccFacilitiesTable { get; set; }
         public DbSet<PccAdtTable> PccAdtTable { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Data Source=166.78.211.31,61433;Initial Catalog=TSC_GA;User ID=Appsheet_user;Password=AS3218pt;Encrypt=False;");
-            }
+            base.OnModelCreating(modelBuilder);
         }
-
-
     }
 }

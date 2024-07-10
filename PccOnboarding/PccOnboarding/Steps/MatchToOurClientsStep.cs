@@ -7,11 +7,11 @@ namespace PccOnboarding.Steps;
 
 public class MatchToOurClientsStep
 {
-    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, Type db)
+    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, DbContext context)
     {
         LogFile.Write("Matching PCC patients to ClientsInfoTable...\n");
         var matched = 0;
-        using (var context = (DbContext)Activator.CreateInstance(db))
+        //using (var context = (DbContext)Activator.CreateInstance(db))
         {
             //Gets all patients from the ClientsInfo table
             var ourClients = context.Set<ClientInfoTable>().ToList();

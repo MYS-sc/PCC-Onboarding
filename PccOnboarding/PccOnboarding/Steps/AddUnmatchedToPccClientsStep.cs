@@ -7,12 +7,12 @@ namespace PccOnboarding.Steps;
 
 public class AddUnmatchedToPccClientsStep
 {
-    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, Type db)
+    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, DbContext context)
     {
         var unmatched = patientsList.Where(p => p.NewClient == false);
         Console.WriteLine($"unmatched {unmatched.Count()}");
         LogFile.Write("Adding To PccPatientsClientsTable...\n");
-        using (var context = (DbContext)Activator.CreateInstance(db))
+        //using (var context = (DbContext)Activator.CreateInstance(db))
         {
 
             foreach (var match in unmatched)
@@ -29,7 +29,7 @@ public class AddUnmatchedToPccClientsStep
 
                 };
                 context?.Set<PccPatientsClientTable>().Add(pccClient);
-                context?.SaveChanges();
+                //context?.SaveChanges();
 
                 LogFile.Write($"Added PccPatientsClients - FirstName: {match.FirstName,-15} LastName: {match.LastName,-15} Id:{match.ourId,-10} pccId:{match.PatientId,-10}");
 
