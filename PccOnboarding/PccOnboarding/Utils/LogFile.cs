@@ -1,4 +1,4 @@
-﻿namespace PccOnboarding;
+﻿namespace PccOnboarding.Utils;
 
 static class LogFile
 {

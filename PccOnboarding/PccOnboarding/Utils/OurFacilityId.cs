@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PccOnboarding.Context;
+using PccOnboarding.Models.Tables;
 
-namespace PccOnboarding.Utils;
+
+namespace PccWebhook.Utils;
 
 public class OurFacilityId
 {
-
     public async Task<int?> Get(string orgId, string state, int pccFacId)
     {
         // get the right state Database

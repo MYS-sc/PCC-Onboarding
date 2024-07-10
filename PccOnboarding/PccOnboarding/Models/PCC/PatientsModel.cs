@@ -9,6 +9,7 @@ namespace PccOnboarding.Models.PCC
     public class PatientsModel
     {
         public string OrgUuid { get; set; }
+        public bool NewClient { get; set; } = false;
         public string FacId { get; set; }
         public int PatientId { get; set; }
         public string MedicalRecordNumber { get; set; }

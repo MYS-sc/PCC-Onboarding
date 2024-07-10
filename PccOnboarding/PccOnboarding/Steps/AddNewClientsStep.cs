@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PccOnboarding.Models.PCC;
 using PccOnboarding.Models.Tables;
+using PccOnboarding.Utils;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Steps;
 
 public class AddNewClientsStep
 {
@@ -32,7 +33,8 @@ public class AddNewClientsStep
                 };
                 var table = context.Set<ClientInfoTable>().Add(patient);
                 context.SaveChanges();
-                notMatched = notMatched.Select(p =>
+                //get the new id that was just assigned to the new clientinfo input aka ourIdma
+                patientsList = patientsList.Select(p =>
                                                     {
                                                         if (p.PatientId == nm.PatientId)
                                                         {
@@ -45,6 +47,6 @@ public class AddNewClientsStep
             LogFile.BreakLine();
         }
 
-        return notMatched;
+        return patientsList;
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using PccOnboarding.Models.PCC;
 using PccOnboarding.Models.Tables;
+using PccOnboarding.Utils;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Steps;
 
 public class AddMatchedToPccClientsStep
 {

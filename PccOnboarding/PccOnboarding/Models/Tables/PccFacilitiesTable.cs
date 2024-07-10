@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Models.Tables;
 
 [Table("tbl_pcc_fac")]
 public class PccFacilitiesTable

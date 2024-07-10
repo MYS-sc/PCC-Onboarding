@@ -1,10 +1,9 @@
-﻿
-using PccOnboarding.Models.PCC;
+﻿using PccOnboarding.Models.PCC;
 using PccOnboarding.Utils;
 using Newtonsoft.Json;
 using System.Security.Cryptography.X509Certificates;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Steps;
 
 public class GetPccDataStep
 {

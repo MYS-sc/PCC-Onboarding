@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PccOnboarding.Models.PCC;
 using PccOnboarding.Models.Tables;
+using PccOnboarding.Utils;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Steps;
 
 public class MatchToOurClientsStep
 {
@@ -33,6 +34,7 @@ public class MatchToOurClientsStep
                                        Pcc.OrgUuid,
                                        Pcc.FacId,
                                        ourId = Pcc.ourId ?? subgroup?.ClientId,
+                                       NewClient = Pcc.ourId != null ? true : false,
                                    };
             //This second check is if the middel name is first only get the first name 
             var patientsCheckThree = from Pcc in patientsCheckOne
@@ -51,6 +53,8 @@ public class MatchToOurClientsStep
                                          OrgUuid = Pcc.OrgUuid,
                                          FacId = Pcc.FacId,
                                          ourId = Pcc.ourId ?? subgroup?.ClientId,
+                                         NewClient = Pcc.ourId != null ? true : false,
+
                                      };
             foreach (var p in patientsCheckThree)
             {

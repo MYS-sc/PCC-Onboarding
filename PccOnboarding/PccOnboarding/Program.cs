@@ -5,11 +5,14 @@ using PccOnboarding;
 using PccOnboarding.Utils;
 using PccOnboarding.Context;
 using PccOnboarding.Models.PCC;
+using PccOnboarding.Steps;
+using PccWebhook.Utils;
 string orgId = "785e6a7d-206b-4421-b037-7a205c1d8e28";
 int facId = 22;
 string state = "PA";
 
 var dbType = await GetContext.Get(state);
+
 var ourFacId = await new OurFacilityId().Get(orgId, state, facId);
 LogFile.Write($"StartTime: {DateTime.Now}");
 //Gets the patients from the pcc api
@@ -23,9 +26,16 @@ var afterAddingMatched = new AddMatchedToPccClientsStep().Execute(matchedToOurCl
 //Updates the matched in the ClientsInfo table to the correct FacilityId
 var afterUpdate = new UpdateClientsInfoTableStep().Execute(afterAddingMatched, dbType, ourFacId);
 //Add the none Matched from the Clientsinfo table as new clients into the ClientsInfo table
-var onlyNewClients = new AddNewClientsStep().Execute(afterUpdate, dbType, ourFacId);
+var afterAddingNewClients = new AddNewClientsStep().Execute(afterUpdate, dbType, ourFacId);
 //Adds the new clients to the pccPatientsClients table
-new AddUnmatchedToPccClientsStep().Execute(onlyNewClients, dbType);
+var afterAddingToPccClientsPatients = new AddUnmatchedToPccClientsStep().Execute(afterAddingNewClients, dbType);
 LogFile.WriteWithBreak($"EndTime: {DateTime.Now}");
 
 
+//Test stuff
+
+//var adtList = await new GettingAdtRecordsStep().Execute(matchedToOurClients, orgId);
+//var a = await new CoveragesStepTest().Execute(matchedToOurClients, orgId);
+//var a = await new WebHookSubscriber().post();
+//var g = await new WebHookChecker().get();
+//new InsertAtdRecordsStep().Execute(adtList, dbType);

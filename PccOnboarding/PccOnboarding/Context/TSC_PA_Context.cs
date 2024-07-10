@@ -16,7 +16,7 @@ namespace PccOnboarding.Context
         public DbSet<PccPatientsClientTable> PccPatientsClientTable { get; set; }
         public DbSet<FacilitiesTable> FacilitiesTable { get; set; }
         public DbSet<PccFacilitiesTable> PccFacilitiesTable { get; set; }
-
+        public DbSet<PccAdtTable> PccAdtTable { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -24,7 +24,6 @@ namespace PccOnboarding.Context
                 optionsBuilder.UseSqlServer("Data Source=166.78.211.31,61433;Initial Catalog=TSC_PA;User ID=Appsheet_user;Password=AS3218pt;Encrypt=False;");
             }
         }
-
 
     }
 }

@@ -1,18 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PccOnboarding.Models.PCC;
 using PccOnboarding.Models.Tables;
+using PccOnboarding.Utils;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Steps;
 
 public class AddUnmatchedToPccClientsStep
 {
-    public void Execute(IEnumerable<PatientsModel> patientsList, Type db)
+    public IEnumerable<PatientsModel> Execute(IEnumerable<PatientsModel> patientsList, Type db)
     {
+        var unmatched = patientsList.Where(p => p.NewClient == false);
+        Console.WriteLine($"unmatched {unmatched.Count()}");
         LogFile.Write("Adding To PccPatientsClientsTable...\n");
         using (var context = (DbContext)Activator.CreateInstance(db))
         {
 
-            foreach (var match in patientsList)
+            foreach (var match in unmatched)
             {
                 var pccClient = new PccPatientsClientTable()
                 {
@@ -33,5 +36,6 @@ public class AddUnmatchedToPccClientsStep
             }
             LogFile.BreakLine();
         }
+        return patientsList;
     }
 }
