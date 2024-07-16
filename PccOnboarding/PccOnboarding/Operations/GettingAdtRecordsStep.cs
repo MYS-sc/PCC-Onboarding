@@ -14,7 +14,7 @@ public class GettingAdtRecordsStep
     private string pathToCertificate = @"C:\Users\MosheYehudaSznicer\Desktop\SuppCareApp.pfx";
     private string privateKeyPassphrase = "27Randolph";
     private List<PccAdtTable> _adtList = new List<PccAdtTable>();
-    public async Task<List<PccAdtTable>?> Execute(IEnumerable<PatientsModel> patientsList, string orgId)
+    public async Task<List<PccAdtTable>?> Execute(IEnumerable<PccPatientsModel> patientsList, string orgId)
     {
         _accessToken = await BearerToken.Get();
         foreach (var patient in patientsList)
@@ -32,7 +32,7 @@ public class GettingAdtRecordsStep
         var request = new HttpRequestMessage()
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri($"https://connect2.pointclickcare.com/api/public/preview1/orgs/{orgId}/adt-records?patientId={patientId}"),
+            RequestUri = new Uri($"https://connect2.pointclickcare.com/api/public/preview1/orgs/{orgId}/adt-records?patientId={patientId}?"),
             Headers ={
                 {"contentType","application/json"},
                 {"authorization",$"Bearer {_accessToken}"}

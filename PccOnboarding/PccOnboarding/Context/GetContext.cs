@@ -23,7 +23,7 @@ namespace PccOnboarding.Context
                 { "nj", typeof(TSC_NJ_Context) },
                 { "ny", typeof(TSC_NY_Context) },
                 { "oh", typeof(TSC_OH_Context) },
-                { "pa", typeof(TSC_PA_Context)},
+                { "pa", typeof(TSC_PA_Context) },
                 { "ri", typeof(TSC_RI_Context) },
                 { "sc", typeof(TSC_SC_Context) },
                 { "tn", typeof(TSC_TN_Context) },

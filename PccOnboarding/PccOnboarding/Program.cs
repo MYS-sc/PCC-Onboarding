@@ -11,6 +11,7 @@ using PccWebhook.Utils;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using PccOnboarding.models.Our;
 
 var serviceCollection = new ServiceCollection();
 
@@ -26,25 +27,53 @@ int facId = 22;
 string state = "PA";
 
 //var dbType = await GetContext.Get(state);
-DbContext dbType = serviceProvider.GetRequiredService<IContextFactory>().GetContext("PA");
+DbContext dbContext = serviceProvider.GetRequiredService<IContextFactory>().GetContext(state);
 
 
-var ourFacId = await new OurFacilityId().Get(orgId, state, facId,dbType);
+var ourFacId = await new OurFacilityId().Get(orgId, facId, dbContext);
 LogFile.Write($"StartTime: {DateTime.Now}");
 //Gets the patients from the pcc api
-var patients = await new GetPccDataStep(orgId, facId).Execute();
-//Checks to see if we have those patients in our pccPatientsclients table and retuns the ones we don't have
-var unmatched = new MatchPccPatientsClientStep().Execute(patients, dbType);
-//Checks to see if we have these clients in the ClientsInfo table if we do we add our id and retun the ones we have and the ones we don't 
-var matchedToOurClients = new MatchToOurClientsStep().Execute(unmatched, dbType);
-//Adds the patients that we do have in the ClientsInfo table to the pccPatientsClients Table
-var afterAddingMatched = new AddMatchedToPccClientsStep().Execute(matchedToOurClients, dbType, ourFacId);
+var patients = await new PccDataGetter().Execute(orgId, facId, ourFacId);
+
+
+var pipeline = new Pipeline<OurPatientModel>();
+pipeline.Add(new PccPatientsClientMatcher())
+    .Add(new ClientsInfoMatcher())
+    .Add(new ClientInfoMatchedPccPatientsClientAdder())
+    .Add(new AddUnmatchedToPccClientsStep())
+    .Add(new ClientActiveAdder());
+
+// var matchedToPcc = new PccPatientsClientMatcher().Execute(patients, dbContext);
+
+// var matchedToClientsInfo = new ClientsInfoMatcher().Execute(matchedToPcc, dbContext);
+
+// var afterAddingMatched = new ClientInfoMatchedPccPatientsClientAdder().Execute(matchedToClientsInfo, dbContext);
+
+// var afterAddingNewClients = new NewClientsAdder().Execute(afterAddingMatched, dbContext);
+
+// var afterAddingToPccClientsPatients = new AddUnmatchedToPccClientsStep().Execute(afterAddingNewClients, dbContext);
+
+// new ClientActiveAdder().Execute(afterAddingToPccClientsPatients, dbContext);
+
+
+
+
+pipeline.Execute(patients, dbContext);
+
+
+
+
 //Updates the matched in the ClientsInfo table to the correct FacilityId
-var afterUpdate = new UpdateClientsInfoTableStep().Execute(afterAddingMatched, dbType, ourFacId);
+//var afterUpdate = new UpdateClientsInfoTableStep().Execute(afterAddingMatched, dbContext, ourFacId);
+//new ClientActiveAdder().Execute(matchedToOurClients, ourFacId, dbContext);
 //Add the none Matched from the Clientsinfo table as new clients into the ClientsInfo table
-var afterAddingNewClients = new AddNewClientsStep().Execute(afterUpdate, dbType, ourFacId);
+
 //Adds the new clients to the pccPatientsClients table
-var afterAddingToPccClientsPatients = new AddUnmatchedToPccClientsStep().Execute(afterAddingNewClients, dbType);
+
+
+//new ClientActiveAdder().Execute(afterAddingToPccClientsPatients, ourFacId, dbContext);
+
+dbContext.SaveChanges();
 LogFile.WriteWithBreak($"EndTime: {DateTime.Now}");
 
 

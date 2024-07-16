@@ -17,7 +17,7 @@ namespace PccOnboarding.Context
         public DbSet<FacilitiesTable> FacilitiesTable { get; set; }
         public DbSet<PccFacilitiesTable> PccFacilitiesTable { get; set; }
         public DbSet<PccAdtTable> PccAdtTable { get; set; }
-
+        public DbSet<ClientActiveTable> ClientActiveTable { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

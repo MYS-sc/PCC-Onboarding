@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PccOnboarding.Models.PCC
 {
-    public class PatientsModel
+    public class PccPatientsModel
     {
         public string OrgUuid { get; set; }
-        public bool NewClient { get; set; } = false;
+        //public bool NewClient { get; set; } = false;
         public string FacId { get; set; }
         public int PatientId { get; set; }
         public string MedicalRecordNumber { get; set; }
@@ -38,6 +38,9 @@ namespace PccOnboarding.Models.PCC
         public string Occupation { get; set; }
         public string BirthPlace { get; set; }
         public string? MiddleName { get; set; }
-        public int? ourId { get; set; } = null;
+        //public int? ourId { get; set; } = null;
+        public string BedDesc { get; set; }
+        public string FloorDesc { get; set; }
+        public string RoomDesc { get; set; }
     }
 }

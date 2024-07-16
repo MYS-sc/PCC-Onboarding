@@ -13,7 +13,7 @@ public class CoveragesStepTest
     private string pathToCertificate = @"C:\Users\MosheYehudaSznicer\Desktop\SuppCareApp.pfx";
     private string privateKeyPassphrase = "27Randolph";
     private List<PccAdtTable> _adtList = new List<PccAdtTable>();
-    public async Task<List<PccAdtTable>?> Execute(IEnumerable<PatientsModel> patientsList, string orgId)
+    public async Task<List<PccAdtTable>?> Execute(IEnumerable<PccPatientsModel> patientsList, string orgId)
     {
         _accessToken = await BearerToken.Get();
         foreach (var patient in patientsList)

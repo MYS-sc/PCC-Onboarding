@@ -2,10 +2,11 @@
 using PccOnboarding.Utils;
 using Newtonsoft.Json;
 using System.Security.Cryptography.X509Certificates;
+using PccOnboarding.models.Our;
 
 namespace PccOnboarding.Steps;
 
-public class GetPccDataStep
+public class PccDataGetter
 {
     //AccessToken for the PCC API call
     private string _accessToken;
@@ -14,27 +15,23 @@ public class GetPccDataStep
 
     private string _orgId;
     private int _facId;
-
+    private int? _ourFacId;
     private int _page = 1;
+    private List<OurPatientModel> _patientsList = new List<OurPatientModel>();
 
 
-    private List<PatientsModel> _patientsList = new List<PatientsModel>();
-
-    public GetPccDataStep(string orgId, int facId)
+    public async Task<List<OurPatientModel>> Execute(string orgId, int facId, int? ourFacId)
     {
         _orgId = orgId;
         _facId = facId;
-
-    }
-    public async Task<List<PatientsModel>> Execute()
-    {
+        _ourFacId = ourFacId;
         _accessToken = await BearerToken.Get();
         LogFile.Write($"Getting All Patients from PCC...\n");
         await _getPatient();
         LogFile.WriteWithBreak($"Got All Patients: {_patientsList.Count(),-10}");
         return _patientsList;
     }
-    private async Task<string> _getPatient()
+    private async Task _getPatient()
     {
         X509Certificate2 clientCertificate = new X509Certificate2(pathToCertificate, privateKeyPassphrase);
         var handler = new HttpClientHandler();
@@ -64,6 +61,7 @@ public class GetPccDataStep
 
             foreach (var item in list.Data)
             {
+                item.OurFacId = _ourFacId;
                 //Adds each PatientModel to a list that i can call this function recursivly
                 _patientsList?.Add(item);
             }
@@ -76,7 +74,7 @@ public class GetPccDataStep
 
 
             }
-            return "done";
+
         }
     }
 
