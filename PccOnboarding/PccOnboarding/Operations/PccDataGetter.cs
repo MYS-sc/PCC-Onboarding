@@ -16,15 +16,17 @@ public class PccDataGetter
     private string _orgId;
     private int _facId;
     private int? _ourFacId;
+    private string _state;
     private int _page = 1;
     private List<OurPatientModel> _patientsList = new List<OurPatientModel>();
 
 
-    public async Task<List<OurPatientModel>> Execute(string orgId, int facId, int? ourFacId)
+    public async Task<List<OurPatientModel>> Execute(string orgId, int facId, int? ourFacId, string state)
     {
         _orgId = orgId;
         _facId = facId;
         _ourFacId = ourFacId;
+        _state = state;
         _accessToken = await BearerToken.Get();
         LogFile.Write($"Getting All Patients from PCC...\n");
         await _getPatient();
@@ -62,6 +64,7 @@ public class PccDataGetter
             foreach (var item in list.Data)
             {
                 item.OurFacId = _ourFacId;
+                item.State = _state;
                 //Adds each PatientModel to a list that i can call this function recursivly
                 _patientsList?.Add(item);
             }

@@ -9,4 +9,5 @@ public class OurPatientModel : PccPatientsModel
     public int? OurPatientId { get; set; }
     public bool PccMatched { get; set; } = false;
     public bool ClientInfoMatched { get; set; } = false;
+    public string State { get; set; }
 }

@@ -33,45 +33,19 @@ DbContext dbContext = serviceProvider.GetRequiredService<IContextFactory>().GetC
 var ourFacId = await new OurFacilityId().Get(orgId, facId, dbContext);
 LogFile.Write($"StartTime: {DateTime.Now}");
 //Gets the patients from the pcc api
-var patients = await new PccDataGetter().Execute(orgId, facId, ourFacId);
+var patients = await new PccDataGetter().Execute(orgId, facId, ourFacId, state);
 
 
 var pipeline = new Pipeline<OurPatientModel>();
 pipeline.Add(new PccPatientsClientMatcher())
     .Add(new ClientsInfoMatcher())
     .Add(new ClientInfoMatchedPccPatientsClientAdder())
+    .Add(new NewClientsAdder())
     .Add(new AddUnmatchedToPccClientsStep())
-    .Add(new ClientActiveAdder());
-
-// var matchedToPcc = new PccPatientsClientMatcher().Execute(patients, dbContext);
-
-// var matchedToClientsInfo = new ClientsInfoMatcher().Execute(matchedToPcc, dbContext);
-
-// var afterAddingMatched = new ClientInfoMatchedPccPatientsClientAdder().Execute(matchedToClientsInfo, dbContext);
-
-// var afterAddingNewClients = new NewClientsAdder().Execute(afterAddingMatched, dbContext);
-
-// var afterAddingToPccClientsPatients = new AddUnmatchedToPccClientsStep().Execute(afterAddingNewClients, dbContext);
-
-// new ClientActiveAdder().Execute(afterAddingToPccClientsPatients, dbContext);
-
-
-
+    .Add(new ClientActiveAdder())
+    .Add(new BedLogger());
 
 pipeline.Execute(patients, dbContext);
-
-
-
-
-//Updates the matched in the ClientsInfo table to the correct FacilityId
-//var afterUpdate = new UpdateClientsInfoTableStep().Execute(afterAddingMatched, dbContext, ourFacId);
-//new ClientActiveAdder().Execute(matchedToOurClients, ourFacId, dbContext);
-//Add the none Matched from the Clientsinfo table as new clients into the ClientsInfo table
-
-//Adds the new clients to the pccPatientsClients table
-
-
-//new ClientActiveAdder().Execute(afterAddingToPccClientsPatients, ourFacId, dbContext);
 
 dbContext.SaveChanges();
 LogFile.WriteWithBreak($"EndTime: {DateTime.Now}");
