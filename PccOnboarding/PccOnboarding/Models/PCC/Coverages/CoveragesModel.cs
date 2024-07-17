@@ -1,4 +1,4 @@
-﻿namespace PccOnboarding;
+﻿namespace PccOnboarding.Models.PCC.Coverages;
 
 public class CoveragesModel
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PccOnboarding.models.Our;
+using PccOnboarding.Models.Our;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Operations;
 
 public interface IOperation
 {

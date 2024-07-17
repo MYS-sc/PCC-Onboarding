@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PccOnboarding.models.Our;
+using PccOnboarding.Models.Our;
 using PccOnboarding.Models.PCC;
 using PccOnboarding.Models.Tables;
 using PccOnboarding.Utils;
 using PccWebhook.Utils;
 
-namespace PccOnboarding.Steps;
+namespace PccOnboarding.Operations;
 
 public class AddUnmatchedToPccClientsStep : IOperation
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PccOnboarding.models.Our;
+using PccOnboarding.Models.Our;
 
 namespace PccOnboarding.Models.PCC
 {

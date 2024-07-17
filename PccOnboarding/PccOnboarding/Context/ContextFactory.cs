@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using PccOnboarding.Context;
 
-namespace PccOnboarding;
+
+namespace PccOnboarding.Context;
 
 public class ContextFactory : IContextFactory
 {

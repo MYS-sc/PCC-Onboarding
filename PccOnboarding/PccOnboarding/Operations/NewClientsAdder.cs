@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using PccOnboarding.models.Our;
+using PccOnboarding.Models.Our;
 using PccOnboarding.Models.PCC;
 using PccOnboarding.Models.Tables;
 using PccOnboarding.Utils;
 
-namespace PccOnboarding.Steps;
+namespace PccOnboarding.Operations;
 
 public class NewClientsAdder : IOperation
 {

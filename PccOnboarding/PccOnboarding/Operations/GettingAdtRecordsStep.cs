@@ -6,7 +6,7 @@ using PccOnboarding.Models.PCC;
 using PccOnboarding.Models.Tables;
 using PccOnboarding.Utils;
 
-namespace PccOnboarding.Steps;
+namespace PccOnboarding.Operations;
 
 public class GettingAdtRecordsStep
 {

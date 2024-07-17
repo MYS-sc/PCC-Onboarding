@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Models.PCC.Coverages;
 
 public class InsuredPartyModel
 {

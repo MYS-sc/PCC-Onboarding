@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PccOnboarding")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db8e155564c6204239b1348ea2a8e2de64abd502")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+65131dd47fc2ac50a634b8798fd828799eea86d8")]
 [assembly: System.Reflection.AssemblyProductAttribute("PccOnboarding")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PccOnboarding")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

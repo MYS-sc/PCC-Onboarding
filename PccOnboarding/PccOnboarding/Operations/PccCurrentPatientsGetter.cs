@@ -2,11 +2,11 @@
 using PccOnboarding.Utils;
 using Newtonsoft.Json;
 using System.Security.Cryptography.X509Certificates;
-using PccOnboarding.models.Our;
+using PccOnboarding.Models.Our;
 
-namespace PccOnboarding.Steps;
+namespace PccOnboarding.Operations;
 
-public class PccDataGetter
+public class PccCurrentPatientDataGetter
 {
     //AccessToken for the PCC API call
     private string _accessToken;
@@ -56,11 +56,15 @@ public class PccDataGetter
             reponse.EnsureSuccessStatusCode();
 
             var body = await reponse.Content.ReadAsStringAsync();
+
             //Gets the paging object
             PagingModel paging = JsonConvert.DeserializeObject<PagingModel>(body);
             //Deserializes the response to a list of patientsModel 
             var list = JsonConvert.DeserializeObject<PatientsListModel>(body);
-
+            if (list == null || list.Data == null || list.Data.Count == 0)
+            {
+                throw new PccExeption("No patients found");
+            }
             foreach (var item in list.Data)
             {
                 item.OurFacId = _ourFacId;

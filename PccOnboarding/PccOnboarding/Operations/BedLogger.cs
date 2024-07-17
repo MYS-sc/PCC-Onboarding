@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PccOnboarding.models.Our;
+using PccOnboarding.Context;
+using PccOnboarding.Models.Our;
+using PccOnboarding.Models.Tables;
 using PccOnboarding.Utils;
 
-namespace PccOnboarding;
+
+namespace PccOnboarding.Operations;
 
 public class BedLogger : IOperation
 {

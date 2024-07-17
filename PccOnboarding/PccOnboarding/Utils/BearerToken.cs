@@ -1,13 +1,7 @@
-﻿using Azure.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Net;
-using System.Net.Http.Headers;
+﻿
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PccOnboarding.Utils
 {

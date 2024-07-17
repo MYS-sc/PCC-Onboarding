@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PccOnboarding.Models.Tables;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Context;
 
 public class TSC_Logs_Context() : DbContext
 {

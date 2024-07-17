@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PccOnboarding.Models.Tables;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Operations;
 
 public class InsertAtdRecordsStep
 {

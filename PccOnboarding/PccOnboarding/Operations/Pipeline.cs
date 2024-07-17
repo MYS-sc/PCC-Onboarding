@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PccOnboarding.models.Our;
+using PccOnboarding.Models.Our;
 using PccWebhook.Utils;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Operations;
 
 public class Pipeline<T>
 {

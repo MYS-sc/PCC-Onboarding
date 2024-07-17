@@ -1,9 +1,12 @@
 ﻿using System.Net.Sockets;
 using Microsoft.EntityFrameworkCore;
-using PccOnboarding.models.Our;
+using PccDishargeSync;
+using PccDishargeSync.Constants;
+using PccOnboarding.Models.Our;
 using PccOnboarding.Models.PCC;
+using PccOnboarding.Models.Tables;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Operations;
 
 public class ClientActiveAdder : IOperation
 {
@@ -32,7 +35,7 @@ public class ClientActiveAdder : IOperation
                         continue;
                     }
                     m.DischargeDate = Convert.ToDateTime(patient.AdmissionDate).AddDays(-1);
-                    m.TerminationType = 7;
+                    m.TerminationType = TerminationTypesConsts.READMIT_DISCHARGE;
                 }
             }
             var dischrageNull = table.Where(x => x.ClientInfoId == patient.OurPatientId && x.DischargeDate == null).ToList();

@@ -1,6 +1,6 @@
 ﻿using PccOnboarding.Models.PCC;
 
-namespace PccOnboarding.models.Our;
+namespace PccOnboarding.Models.Our;
 
 public class OurPatientModel : PccPatientsModel
 {

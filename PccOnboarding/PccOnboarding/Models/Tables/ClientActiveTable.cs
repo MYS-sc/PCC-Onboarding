@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PccOnboarding;
+namespace PccOnboarding.Models.Tables;
 
 [Table("tbl_cl_active")]
 public class ClientActiveTable

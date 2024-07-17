@@ -1,50 +1,86 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-
+﻿
 using PccOnboarding;
 using PccOnboarding.Utils;
-using PccOnboarding.Context;
-using PccOnboarding.Models.PCC;
-using PccOnboarding.Steps;
+using PccOnboarding.Operations;
 using PccWebhook.Utils;
-
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using PccOnboarding.models.Our;
+using PccOnboarding.Models.Our;
+using PccOnboarding.Constants;
+using PccOnboarding.Context;
 
-var serviceCollection = new ServiceCollection();
+
+ServiceCollection serviceCollection = new ServiceCollection();
 
 serviceCollection.AddContexts();
 serviceCollection.AddScoped<IContextFactory, ContextFactory>();
 
-var serviceProvider = serviceCollection.BuildServiceProvider();
+ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
 
 
 string orgId = "785e6a7d-206b-4421-b037-7a205c1d8e28";
 int facId = 22;
 string state = "PA";
+string runType;
+int? ourFacId;
+DbContext dbContext;
+List<OurPatientModel> patients = new List<OurPatientModel>();
 
-//var dbType = await GetContext.Get(state);
-DbContext dbContext = serviceProvider.GetRequiredService<IContextFactory>().GetContext(state);
+while (true)
+{
+        Console.Write("Please Enter one of the following: (1 - Onboarding, 2 - Discharge) > ");
+        var input = Console.ReadLine();
+        if (!(input == "1" || input == "2"))
+        {
+                continue;
+        }
 
+        runType = input;
+        break;
+}
 
-var ourFacId = await new OurFacilityId().Get(orgId, facId, dbContext);
+while (true)
+{
+        Console.Write("Please Enter orgUId > ");
+        orgId = Console.ReadLine();
+        Console.Write("Please Enter FacId > ");
+        facId = int.Parse(Console.ReadLine());
+        Console.Write("Please Enter State > ");
+        state = Console.ReadLine().ToUpper();
+
+        dbContext = serviceProvider.GetRequiredService<IContextFactory>().GetContext(state);
+
+        ourFacId = await new OurFacilityId().Get(orgId, facId, dbContext);
+
+        if (ourFacId != null)
+        {
+                break;
+        }
+
+        Console.WriteLine("Facility not found Please try again");
+}
+
 LogFile.Write($"StartTime: {DateTime.Now}");
-//Gets the patients from the pcc api
-var patients = await new PccDataGetter().Execute(orgId, facId, ourFacId, state);
-
-
 var pipeline = new Pipeline<OurPatientModel>();
 
-pipeline.Add(new PccPatientsClientMatcher())
-        .Add(new ClientsInfoMatcher())
-        .Add(new ClientInfoMatchedPccPatientsClientAdder())
-        .Add(new NewClientsAdder())
-        .Add(new AddUnmatchedToPccClientsStep())
-        .Add(new ClientActiveAdder())
-        .Add(new BedLogger());
+if (runType == RunTypes.ONBOARDING)
+{
+        patients = await new PccCurrentPatientDataGetter().Execute(orgId, facId, ourFacId, state);
+        pipeline.Add(new PccPatientsClientMatcher())
+                .Add(new ClientsInfoMatcher())
+                .Add(new ClientInfoMatchedPccPatientsClientAdder())
+                .Add(new NewClientsAdder())
+                .Add(new AddUnmatchedToPccClientsStep())
+                .Add(new ClientActiveAdder())
+                .Add(new BedLogger());
+}
+if (runType == RunTypes.DISCHARGE_SYNC)
+{
+        patients = await new PccDischargedPatientsDataGetter().Execute(orgId, facId, ourFacId, state);
+        pipeline.Add(new ClientsInfoMatcher())
+                .Add(new ClientActiveDischarger());
+}
 
 pipeline.Execute(patients, dbContext);
 

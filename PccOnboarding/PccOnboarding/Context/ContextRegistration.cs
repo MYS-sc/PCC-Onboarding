@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using PccOnboarding.Context;
 
-namespace PccOnboarding;
+
+namespace PccOnboarding.Context;
 
 public static class ContextRegistration
 {

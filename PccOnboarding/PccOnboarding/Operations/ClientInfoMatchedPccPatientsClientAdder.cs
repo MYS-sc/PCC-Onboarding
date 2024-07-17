@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client.Extensibility;
-using PccOnboarding.models.Our;
+using PccOnboarding.Models.Our;
 using PccOnboarding.Models.PCC;
 using PccOnboarding.Models.Tables;
 using PccOnboarding.Utils;
 
-namespace PccOnboarding.Steps;
+namespace PccOnboarding.Operations;
 
 public class ClientInfoMatchedPccPatientsClientAdder : IOperation
 {

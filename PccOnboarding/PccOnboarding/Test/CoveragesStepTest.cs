@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json;
 using PccOnboarding.Models.PCC;
+using PccOnboarding.Models.PCC.Coverages;
 using PccOnboarding.Models.Tables;
 using PccOnboarding.Utils;
 
