@@ -29,7 +29,6 @@ public class ClientsInfoMatcher : IOperation
             {
                 patient.ClientInfoMatched = true;
                 patient.OurPatientId = match.ClientId;
-                patient.IsNewClient = true;
                 //Updates the facility id in the client info table
                 match.FacilityId = patient.OurFacId;
             }
@@ -51,7 +50,6 @@ public class ClientsInfoMatcher : IOperation
             {
                 patient.ClientInfoMatched = true;
                 patient.OurPatientId = match.ClientId;
-                patient.IsNewClient = true;
                 //Updates the facility id in the client info table
                 match.FacilityId = patient.OurFacId;
             }

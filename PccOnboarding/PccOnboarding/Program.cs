@@ -37,17 +37,19 @@ var patients = await new PccDataGetter().Execute(orgId, facId, ourFacId, state);
 
 
 var pipeline = new Pipeline<OurPatientModel>();
+
 pipeline.Add(new PccPatientsClientMatcher())
-    .Add(new ClientsInfoMatcher())
-    .Add(new ClientInfoMatchedPccPatientsClientAdder())
-    .Add(new NewClientsAdder())
-    .Add(new AddUnmatchedToPccClientsStep())
-    .Add(new ClientActiveAdder())
-    .Add(new BedLogger());
+        .Add(new ClientsInfoMatcher())
+        .Add(new ClientInfoMatchedPccPatientsClientAdder())
+        .Add(new NewClientsAdder())
+        .Add(new AddUnmatchedToPccClientsStep())
+        .Add(new ClientActiveAdder())
+        .Add(new BedLogger());
 
 pipeline.Execute(patients, dbContext);
 
 dbContext.SaveChanges();
+
 LogFile.WriteWithBreak($"EndTime: {DateTime.Now}");
 
 

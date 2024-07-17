@@ -11,7 +11,7 @@ public class AddUnmatchedToPccClientsStep : IOperation
 {
     public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
-        var unmatched = patientsList.Where(p => p.IsNewClient == false);
+        var unmatched = patientsList.Where(p => p.ClientInfoMatched == false && p.PccMatched == false).ToList();
         Console.WriteLine($"unmatched {unmatched.Count()}");
         LogFile.Write("Adding To PccPatientsClientsTable...\n");
         //using (var context = (DbContext)Activator.CreateInstance(db))

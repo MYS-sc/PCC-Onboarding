@@ -10,14 +10,13 @@ public class ClientActiveAdder : IOperation
     public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
         var table = context.Set<ClientActiveTable>();
-        Console.WriteLine(patientsList.Count());
         foreach (var patient in patientsList)
         {
 
             var matches = table.Where(x => x.ClientInfoId == patient.OurPatientId && x.DischargeDate == null).ToList();
             if (matches.Count() == 0)
             {
-                goto Addre;
+                goto Adder;
             }
 
             if (matches.Count() > 0)
@@ -38,7 +37,7 @@ public class ClientActiveAdder : IOperation
                 return patientsList;
             }
 
-        Addre:
+        Adder:
             ClientActiveTable clientActiveOne = new ClientActiveTable
             {
                 ClientInfoId = patient.OurPatientId,
