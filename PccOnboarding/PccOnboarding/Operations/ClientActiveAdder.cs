@@ -13,7 +13,7 @@ public class ClientActiveAdder : IOperation
         foreach (var patient in patientsList)
         {
 
-            var matches = table.Where(x => x.ClientInfoId == patient.OurPatientId && x.DischargeDate == null).ToList();
+            var matches = table.Where(x => x.ClientInfoId == patient.OurPatientId && x.DischargeDate == null);
             if (matches.Count() == 0)
             {
                 goto Adder;
@@ -28,6 +28,7 @@ public class ClientActiveAdder : IOperation
                         m.Bed = patient.BedDesc;
                         m.Room = patient.RoomDesc;
                         m.Floor = patient.FloorDesc;
+                        m.OurFacilityId = patient.OurFacId;
                         continue;
                     }
                     m.DischargeDate = Convert.ToDateTime(patient.AdmissionDate).AddDays(-1);
@@ -37,7 +38,7 @@ public class ClientActiveAdder : IOperation
             var dischrageNull = table.Where(x => x.ClientInfoId == patient.OurPatientId && x.DischargeDate == null).ToList();
             if (dischrageNull.Count() > 0)
             {
-                return patientsList;
+                continue;
             }
 
         Adder:
