@@ -34,14 +34,7 @@ public class NewClientsAdder : IOperation
             context.SaveChanges();
             //get the new id that was just assigned to the new clientinfo input aka ourIdma
             nm.OurPatientId = patient.ClientId;
-            // _ = patientsList.Select(p =>
-            //                                    {
-            //                                        if (p.PatientId == nm.PatientId)
-            //                                        {
-            //                                            p.OurPatientId = patient.ClientId;
-            //                                        }
-            //                                        return p;
-            //                                    }).ToList();
+
             LogFile.Write($"Added To: ClientsInfoTable OurId: {patient.ClientId,-10} FirstName: {patient.OurFirstName,-15} LastName: {patient.LastName,-10} FacilityId: {patient.FacilityId,-10}");
         }
 

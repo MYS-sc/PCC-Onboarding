@@ -28,7 +28,6 @@ public class ClientInfoMatchedPccPatientsClientAdder : IOperation
             };
             context?.Set<PccPatientsClientTable>().Add(pccClient);
             match.PccMatched = true;
-            //Console.WriteLine(pccClient.PccClientId);
             LogFile.Write($"Added PccPatientsClients - FirstName: {match.FirstName,-15} LastName: {match.LastName,-15} Id:{match.OurPatientId,-10} pccId:{match.PatientId,-10}");
         }
         context?.SaveChanges();

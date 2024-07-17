@@ -61,7 +61,6 @@ public class ClientsInfoMatcher : IOperation
 
         var matchedAmount = patientsList.Count(x => x.ClientInfoMatched == true);
         LogFile.Write($"Found Matched To ClientsInfoTable: {matchedAmount,-10}");
-        //LogFile.WriteWithBreak($"Found Unmatched To ClientsInfoTable: {matchedAmount - matched}");
         context.SaveChanges();
         return patientsList;
 

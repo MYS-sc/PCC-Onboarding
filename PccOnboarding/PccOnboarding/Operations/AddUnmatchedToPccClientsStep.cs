@@ -14,31 +14,29 @@ public class AddUnmatchedToPccClientsStep : IOperation
         var unmatched = patientsList.Where(p => p.ClientInfoMatched == false && p.PccMatched == false).ToList();
         Console.WriteLine($"unmatched {unmatched.Count()}");
         LogFile.Write("Adding To PccPatientsClientsTable...\n");
-        //using (var context = (DbContext)Activator.CreateInstance(db))
+
+        foreach (var match in unmatched)
         {
-
-            foreach (var match in unmatched)
+            var pccClient = new PccPatientsClientTable()
             {
-                var pccClient = new PccPatientsClientTable()
-                {
-                    FirstName = match.FirstName,
-                    LastName = match.LastName,
-                    PccDob = Convert.ToDateTime(match.BirthDate),
-                    ClientId = match.OurPatientId,
-                    OrgUid = match.OrgUuid,
-                    PccId = match.PatientId,
-                    FacilityId = int.Parse(match.FacId)
+                FirstName = match.FirstName,
+                LastName = match.LastName,
+                PccDob = Convert.ToDateTime(match.BirthDate),
+                ClientId = match.OurPatientId,
+                OrgUid = match.OrgUuid,
+                PccId = match.PatientId,
+                FacilityId = int.Parse(match.FacId)
 
-                };
-                context?.Set<PccPatientsClientTable>().Add(pccClient);
+            };
+            context?.Set<PccPatientsClientTable>().Add(pccClient);
 
 
-                LogFile.Write($"Added PccPatientsClients - FirstName: {match.FirstName,-15} LastName: {match.LastName,-15} Id:{match.OurPatientId,-10} pccId:{match.PatientId,-10}");
+            LogFile.Write($"Added PccPatientsClients - FirstName: {match.FirstName,-15} LastName: {match.LastName,-15} Id:{match.OurPatientId,-10} pccId:{match.PatientId,-10}");
 
-            }
-            context?.SaveChanges();
-            LogFile.BreakLine();
         }
+        context?.SaveChanges();
+        LogFile.BreakLine();
+
         return patientsList;
     }
 }

@@ -25,6 +25,9 @@ public class ClientActiveAdder : IOperation
                 {
                     if (m.AdmissionDate == Convert.ToDateTime(patient.AdmissionDate))
                     {
+                        m.Bed = patient.BedDesc;
+                        m.Room = patient.RoomDesc;
+                        m.Floor = patient.FloorDesc;
                         continue;
                     }
                     m.DischargeDate = Convert.ToDateTime(patient.AdmissionDate).AddDays(-1);

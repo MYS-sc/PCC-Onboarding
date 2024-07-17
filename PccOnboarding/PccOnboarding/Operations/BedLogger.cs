@@ -8,8 +8,8 @@ public class BedLogger : IOperation
 {
     public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
-        //var options = new DbContextOptionsBuilder<TSC_Logs_Context>();
-        context =  new TSC_Logs_Context();
+
+        context = new TSC_Logs_Context();
         LogFile.Write("Logging Beds...\n");
         var table = context.Set<BedLogsTable>();
         foreach (var patient in patientsList)
