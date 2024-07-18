@@ -6,7 +6,7 @@ using PccOnboarding.Models.Our;
 
 namespace PccOnboarding.Operations;
 
-public class PccCurrentPatientDataGetter
+public class PccDischargedPatientsDataGetter : IDataGetter
 {
     //AccessToken for the PCC API call
     private string _accessToken;
@@ -43,7 +43,7 @@ public class PccCurrentPatientDataGetter
         var request = new HttpRequestMessage()
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri($"https://connect2.pointclickcare.com/api/public/preview1/orgs/{_orgId}/patients?facId={_facId}&page={_page}&pageSize=200&patientStatus=Current"),
+            RequestUri = new Uri($"https://connect2.pointclickcare.com/api/public/preview1/orgs/{_orgId}/patients?facId={_facId}&page={_page}&pageSize=200&patientStatus=Discharged"),
             Headers =
                 {
                     {"contentType","application/json" },

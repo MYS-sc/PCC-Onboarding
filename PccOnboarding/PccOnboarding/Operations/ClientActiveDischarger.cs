@@ -26,6 +26,7 @@ public class ClientActiveDischarger : IOperation
                     continue;
                 }
                 m.TerminationType = TerminationTypesConsts.DISCHARGED;
+
             }
 
         }

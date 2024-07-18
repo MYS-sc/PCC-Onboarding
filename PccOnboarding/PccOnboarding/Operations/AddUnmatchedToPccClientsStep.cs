@@ -11,7 +11,12 @@ public class AddUnmatchedToPccClientsStep : IOperation
 {
     public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
-        var unmatched = patientsList.Where(p => p.ClientInfoMatched == false && p.PccMatched == false).ToList();
+        var unmatched = patientsList.Where(p => p.ClientInfoMatched == false && p.PccMatched == false);
+        if (unmatched.Count() == 0)
+        {
+            LogFile.WriteWithBreak("No patients to add to PccPatientsClientsTable\n");
+            return patientsList;
+        }
         Console.WriteLine($"unmatched {unmatched.Count()}");
         LogFile.Write("Adding To PccPatientsClientsTable...\n");
 

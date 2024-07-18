@@ -11,9 +11,14 @@ public class NewClientsAdder : IOperation
 {
     public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
+        var matched = patientsList.Where(p => !p.ClientInfoMatched);
+        if (matched.Count() == 0)
+        {
+            LogFile.WriteWithBreak("No patients to add to ClientsInfoTable\n");
+            return patientsList;
+        }
         LogFile.Write("Adding new Clients...\n");
-
-        foreach (var nm in patientsList.Where(p => !p.ClientInfoMatched))
+        foreach (var nm in matched)
         {
 
 

@@ -10,10 +10,12 @@ using PccOnboarding.Constants;
 using PccOnboarding.Context;
 
 
+
 ServiceCollection serviceCollection = new ServiceCollection();
 
 serviceCollection.AddContexts();
 serviceCollection.AddScoped<IContextFactory, ContextFactory>();
+serviceCollection.AddScoped<IPipelineFactory, PipelineFactory>();
 
 ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -29,7 +31,7 @@ List<OurPatientModel> patients = new List<OurPatientModel>();
 
 while (true)
 {
-        Console.Write("Please Enter one of the following: (1 - Onboarding, 2 - Discharge) > ");
+        Console.Write("Please Enter one of the following - Just enter the number: (1 - Onboarding, 2 - Discharge) > ");
         var input = Console.ReadLine();
         if (!(input == "1" || input == "2"))
         {
@@ -62,27 +64,32 @@ while (true)
 }
 
 LogFile.Write($"StartTime: {DateTime.Now}");
-var pipeline = new Pipeline<OurPatientModel>();
+// var pipeline = new Pipeline<OurPatientModel>();
 
-if (runType == RunTypes.ONBOARDING)
-{
-        patients = await new PccCurrentPatientDataGetter().Execute(orgId, facId, ourFacId, state);
-        pipeline.Add(new PccPatientsClientMatcher())
-                .Add(new ClientsInfoMatcher())
-                .Add(new ClientInfoMatchedPccPatientsClientAdder())
-                .Add(new NewClientsAdder())
-                .Add(new AddUnmatchedToPccClientsStep())
-                .Add(new ClientActiveAdder())
-                .Add(new BedLogger());
-}
-if (runType == RunTypes.DISCHARGE_SYNC)
-{
-        patients = await new PccDischargedPatientsDataGetter().Execute(orgId, facId, ourFacId, state);
-        pipeline.Add(new ClientsInfoMatcher())
-                .Add(new ClientActiveDischarger());
-}
+// if (runType == RunTypes.ONBOARDING)
+// {
+//         patients = await new PccCurrentPatientsDataGetter().Execute(orgId, facId, ourFacId, state);
 
-pipeline.Execute(patients, dbContext);
+//         pipeline.Add(new PccPatientsClientMatcher())
+//                 .Add(new ClientsInfoMatcher())
+//                 .Add(new ClientInfoMatchedPccPatientsClientAdder())
+//                 .Add(new NewClientsAdder())
+//                 .Add(new AddUnmatchedToPccClientsStep())
+//                 .Add(new ClientActiveAdder())
+//                 .Add(new BedLogger());
+// }
+// if (runType == RunTypes.DISCHARGE_SYNC)
+// {
+//         patients = await new PccDischargedPatientsDataGetter().Execute(orgId, facId, ourFacId, state);
+
+//         pipeline.Add(new ClientsInfoMatcher())
+//                 .Add(new ClientActiveDischarger());
+// }
+
+// pipeline.Execute(patients, dbContext);
+var pipeline = serviceProvider.GetRequiredService<IPipelineFactory>().Create(runType);
+
+await pipeline.Execute(orgId, facId, ourFacId, state, dbContext);
 
 dbContext.SaveChanges();
 

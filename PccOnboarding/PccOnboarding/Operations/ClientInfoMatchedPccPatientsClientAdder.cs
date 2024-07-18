@@ -11,9 +11,14 @@ public class ClientInfoMatchedPccPatientsClientAdder : IOperation
 {
     public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
-        LogFile.Write("Adding To PccPatientsClientsTable...\n");
-        var matched = patientsList.Where(p => p.ClientInfoMatched == true && !p.PccMatched);
 
+        var matched = patientsList.Where(p => p.ClientInfoMatched == true && !p.PccMatched);
+        if (matched.Count() == 0)
+        {
+            LogFile.WriteWithBreak("No patients to add to PccPatientsClientsTable\n");
+            return patientsList;
+        }
+        LogFile.Write("Adding To PccPatientsClientsTable...\n");
         foreach (var match in matched)
         {
             var pccClient = new PccPatientsClientTable()

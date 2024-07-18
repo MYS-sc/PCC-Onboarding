@@ -34,6 +34,7 @@ public class BedLogger : IOperation
         }
 
         context?.SaveChanges();
+        LogFile.WriteWithBreak("Done Logging Beds\n");
         return patientsList;
     }
 

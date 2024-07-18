@@ -5,6 +5,7 @@ using PccDishargeSync.Constants;
 using PccOnboarding.Models.Our;
 using PccOnboarding.Models.PCC;
 using PccOnboarding.Models.Tables;
+using PccOnboarding.Utils;
 
 namespace PccOnboarding.Operations;
 
@@ -12,6 +13,7 @@ public class ClientActiveAdder : IOperation
 {
     public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
+        LogFile.Write("Adding or Updating Client Active Table...");
         var table = context.Set<ClientActiveTable>();
         foreach (var patient in patientsList)
         {
@@ -28,6 +30,7 @@ public class ClientActiveAdder : IOperation
                 {
                     if (m.AdmissionDate == Convert.ToDateTime(patient.AdmissionDate))
                     {
+                        LogFile.Write($"Updating OurPatientId: {patient.OurPatientId}\n");
                         m.Bed = patient.BedDesc;
                         m.Room = patient.RoomDesc;
                         m.Floor = patient.FloorDesc;
@@ -45,6 +48,7 @@ public class ClientActiveAdder : IOperation
             }
 
         Adder:
+            LogFile.Write($"Adding OurPatientId: {patient.OurPatientId}\n");
             ClientActiveTable clientActiveOne = new ClientActiveTable
             {
                 ClientInfoId = patient.OurPatientId,
@@ -75,6 +79,7 @@ public class ClientActiveAdder : IOperation
 
         }
         context.SaveChanges();
+        LogFile.WriteWithBreak("Done adding or updating Client Active Table");
         //context.SaveChanges();
         return patientsList;
     }
