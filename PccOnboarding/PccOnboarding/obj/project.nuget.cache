@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lbr5gT0sjwqh47EJgoNbyL14tJ5JLPCfpWYcsOsq32Rp/5svzYVpRg/LCRN0fiydCUssF3JJFU45srpBkMkuiA==",
+  "dgSpecHash": "RGODfl/ou7s0tZ7dYw0tgAQYTdGMZDrqLL+xA6eQ6XUCnKI6mP08CnWEiqrsXflvcLJEO00xPCT/d2wkN7ku1g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\PccOnboarding.csproj",
+  "projectFilePath": "C:\\Users\\MosheYehudaSznicer\\documents\\visual studio 2022\\code\\pcc\\pcconboarding\\pcconboarding\\PccOnboarding.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MosheYehudaSznicer\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\MosheYehudaSznicer\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

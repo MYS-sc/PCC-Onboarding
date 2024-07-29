@@ -20,21 +20,21 @@ public class Pipeline<T>
         _dataGetter = dataGetter;
         return this;
     }
-    public void Execute(List<OurPatientModel> patientList, DbContext context)
-    {
-        _patientList = patientList;
-        foreach (var operation in _operations)
-        {
-            _patientList = operation.Execute(_patientList, context);
-        }
-        //return patientList;
-    }
+    // public void Execute(List<OurPatientModel> patientList, DbContext context)
+    // {
+    //     _patientList = patientList;
+    //     foreach (var operation in _operations)
+    //     {
+    //         _patientList = operation.Execute(_patientList, context);
+    //     }
+    //     //return patientList;
+    // }
     public async Task Execute(string orgId, int facId, int? ourFacId, string state, DbContext context)
     {
         _patientList = await _dataGetter.Execute(orgId, facId, ourFacId, state);
         foreach (var operation in _operations)
         {
-            _patientList = operation.Execute(_patientList, context);
+            _patientList = await operation.Execute(_patientList, context);
         }
         //return _patientList;
     }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\PccOnboarding.csproj": {}
+    "C:\\Users\\MosheYehudaSznicer\\documents\\visual studio 2022\\code\\pcc\\pcconboarding\\pcconboarding\\PccOnboarding.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\PccOnboarding.csproj": {
+    "C:\\Users\\MosheYehudaSznicer\\documents\\visual studio 2022\\code\\pcc\\pcconboarding\\pcconboarding\\PccOnboarding.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\PccOnboarding.csproj",
+        "projectUniqueName": "C:\\Users\\MosheYehudaSznicer\\documents\\visual studio 2022\\code\\pcc\\pcconboarding\\pcconboarding\\PccOnboarding.csproj",
         "projectName": "PccOnboarding",
-        "projectPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\PccOnboarding.csproj",
+        "projectPath": "C:\\Users\\MosheYehudaSznicer\\documents\\visual studio 2022\\code\\pcc\\pcconboarding\\pcconboarding\\PccOnboarding.csproj",
         "packagesPath": "C:\\Users\\MosheYehudaSznicer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MosheYehudaSznicer\\Documents\\Visual Studio 2022\\Code\\PCC\\PccOnboarding\\PccOnboarding\\obj\\",
+        "outputPath": "C:\\Users\\MosheYehudaSznicer\\documents\\visual studio 2022\\code\\pcc\\pcconboarding\\pcconboarding\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\MosheYehudaSznicer\\AppData\\Roaming\\NuGet\\NuGet.Config",

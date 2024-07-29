@@ -24,11 +24,14 @@ ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 string orgId = "785e6a7d-206b-4421-b037-7a205c1d8e28";
 int facId = 22;
 string state = "PA";
+//TODO should put this all in its own class
+//* sets all the variables that we will need from the user 
 string runType;
 int? ourFacId;
 DbContext dbContext;
 List<OurPatientModel> patients = new List<OurPatientModel>();
 
+//*Only can enter 1 or 2
 while (true)
 {
         Console.Write("Please Enter one of the following - Just enter the number: (1 - Onboarding, 2 - Discharge) > ");
@@ -42,6 +45,7 @@ while (true)
         break;
 }
 
+//* only will pass if we have this OrgUid, FacId and State Combo in our database
 while (true)
 {
         Console.Write("Please Enter orgUId > ");
@@ -50,7 +54,8 @@ while (true)
         facId = int.Parse(Console.ReadLine());
         Console.Write("Please Enter State > ");
         state = Console.ReadLine().ToUpper();
-
+        //!for testing only take out for production
+        state = "TEST";
         dbContext = serviceProvider.GetRequiredService<IContextFactory>().GetContext(state);
 
         ourFacId = await new OurFacilityId().Get(orgId, facId, dbContext);
@@ -64,29 +69,8 @@ while (true)
 }
 
 LogFile.Write($"StartTime: {DateTime.Now}");
-// var pipeline = new Pipeline<OurPatientModel>();
-
-// if (runType == RunTypes.ONBOARDING)
-// {
-//         patients = await new PccCurrentPatientsDataGetter().Execute(orgId, facId, ourFacId, state);
-
-//         pipeline.Add(new PccPatientsClientMatcher())
-//                 .Add(new ClientsInfoMatcher())
-//                 .Add(new ClientInfoMatchedPccPatientsClientAdder())
-//                 .Add(new NewClientsAdder())
-//                 .Add(new AddUnmatchedToPccClientsStep())
-//                 .Add(new ClientActiveAdder())
-//                 .Add(new BedLogger());
-// }
-// if (runType == RunTypes.DISCHARGE_SYNC)
-// {
-//         patients = await new PccDischargedPatientsDataGetter().Execute(orgId, facId, ourFacId, state);
-
-//         pipeline.Add(new ClientsInfoMatcher())
-//                 .Add(new ClientActiveDischarger());
-// }
-
-// pipeline.Execute(patients, dbContext);
+Console.WriteLine(dbContext.GetType().Name);
+//* Get the right pipeline that we need Onboarding or Discharge
 var pipeline = serviceProvider.GetRequiredService<IPipelineFactory>().Create(runType);
 
 await pipeline.Execute(orgId, facId, ourFacId, state, dbContext);

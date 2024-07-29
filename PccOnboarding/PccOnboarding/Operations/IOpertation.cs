@@ -5,5 +5,5 @@ namespace PccOnboarding.Operations;
 
 public interface IOperation
 {
-    List<OurPatientModel> Execute(List<OurPatientModel> patientList, DbContext context);
+    Task<List<OurPatientModel>> Execute(List<OurPatientModel> patientList, DbContext context);
 }

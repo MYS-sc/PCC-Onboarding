@@ -18,9 +18,9 @@ public class PccCurrentPatientsDataGetter : IDataGetter
     private int? _ourFacId;
     private string _state;
     private int _page = 1;
-    private List<OurPatientModel> _patientsList = new List<OurPatientModel>();
+    private List<OurPatientModel> _patientsList = [];
 
-
+    //* Gets all the patients thats are current in this pcc Facility
     public async Task<List<OurPatientModel>> Execute(string orgId, int facId, int? ourFacId, string state)
     {
         _orgId = orgId;

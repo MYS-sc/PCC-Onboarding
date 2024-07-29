@@ -29,5 +29,7 @@ public static class ContextRegistration
         services.AddDbContext<TSC_TX_Context>(options => options.UseSqlServer("Data Source=166.78.211.31,61433;Initial Catalog=TSC_TX;User ID=Appsheet_user;Password=AS3218pt;Encrypt=False;"));
         services.AddDbContext<TSC_VA_Context>(options => options.UseSqlServer("Data Source=166.78.211.31,61433;Initial Catalog=TSC_VA;User ID=Appsheet_user;Password=AS3218pt;Encrypt=False;"));
         services.AddDbContext<TSC_VT_Context>(options => options.UseSqlServer("Data Source=166.78.211.31,61433;Initial Catalog=TSC_VT;User ID=Appsheet_user;Password=AS3218pt;Encrypt=False;"));
+        //! This is the test TSC
+        services.AddDbContext<TEST_TSC_Context>(options => options.UseSqlServer("Data Source=166.78.211.31,61433;Initial Catalog=TEST_TSC;User ID=Appsheet_user;Password=AS3218pt;Encrypt=False;"));
     }
 }

@@ -5,6 +5,7 @@ namespace PccOnboarding.Context;
 
 public class TSC_Logs_Context() : DbContext
 {
+    public DbSet<OnboardingSimilarLogsTable> OnboardingSimilarLogsTable { get; set; }
     public DbSet<BedLogsTable> BedLogsTable { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

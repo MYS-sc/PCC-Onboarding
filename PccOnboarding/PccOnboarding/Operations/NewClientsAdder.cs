@@ -9,35 +9,36 @@ namespace PccOnboarding.Operations;
 
 public class NewClientsAdder : IOperation
 {
-    public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
+    public async Task<List<OurPatientModel>> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
-        var matched = patientsList.Where(p => !p.ClientInfoMatched);
+        //* Only get the ones that don't match the clientinfotable from the patentlist
+        var matched = patientsList.Where(p => !p.ClientInfoMatched && p.IsSimilar == false).ToList();
+        //* If there is nothing to add we return
         if (matched.Count() == 0)
         {
-            LogFile.WriteWithBreak("No patients to add to ClientsInfoTable\n");
+            LogFile.WriteWithBreak("No patients to add to ClientsInfoTable");
             return patientsList;
         }
         LogFile.Write("Adding new Clients...\n");
         foreach (var nm in matched)
         {
-
-
             var patient = new ClientInfoTable
             {
-                OurFirstName = nm.FirstName,
-                LastName = nm.LastName,
-                DateOfBirth = Convert.ToDateTime(nm.BirthDate),
+                OurFirstName = nm.FirstName?.ToLower(),
+                LastName = nm.LastName?.ToLower(),
+                DateOfBirth = nm.BirthDate == null ? null : Convert.ToDateTime(nm.BirthDate),
                 Gender = nm.Gender,
                 FacilityId = nm.OurFacId,
                 MaritalSatus = nm.MaritalStatus,
+                //!test only take out in production
                 Diagnosis3 = "Test_MY"
 
 
             };
-            var table = context.Set<ClientInfoTable>().Add(patient);
-            // need to save chanches to get the new id that was just assigned By the database
-            context.SaveChanges();
-            //get the new id that was just assigned to the new clientinfo input aka ourIdma
+            var table = await context.Set<ClientInfoTable>().AddAsync(patient);
+            //* need to save changes to get the new id that was just assigned By the database
+            await context.SaveChangesAsync();
+            //* get the new id that was just assigned to the new clientinfo input aka ourIdma
             nm.OurPatientId = patient.ClientId;
 
             LogFile.Write($"Added To: ClientsInfoTable OurId: {patient.ClientId,-10} FirstName: {patient.OurFirstName,-15} LastName: {patient.LastName,-10} FacilityId: {patient.FacilityId,-10}");

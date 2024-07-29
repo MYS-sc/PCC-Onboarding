@@ -28,6 +28,7 @@ public class ContextFactory : IContextFactory
         { "tx", typeof(TSC_TX_Context) },
         { "va", typeof(TSC_VA_Context) },
         { "vt", typeof(TSC_VT_Context) },
+        { "test", typeof(TEST_TSC_Context) }
     };
     private readonly IServiceProvider _serviceprovider;
     public ContextFactory(IServiceProvider serviceProvider)

@@ -9,7 +9,7 @@ namespace PccOnboarding.Operations;
 
 public class BedLogger : IOperation
 {
-    public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
+    public async Task<List<OurPatientModel>> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
 
         context = new TSC_Logs_Context();
@@ -30,11 +30,11 @@ public class BedLogger : IOperation
                 FloorDescription = patient.FloorDesc,
 
             };
-            table.Add(bedLog);
+            table.AddAsync(bedLog);
         }
 
-        context?.SaveChanges();
-        LogFile.WriteWithBreak("Done Logging Beds\n");
+        await context?.SaveChangesAsync();
+        LogFile.WriteWithBreak("Done Logging Beds");
         return patientsList;
     }
 

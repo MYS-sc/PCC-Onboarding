@@ -17,7 +17,10 @@ public class PipelineFactory : IPipelineFactory
                                         .Add(new PccPatientsClientMatcher())
                                         .Add(new ClientsInfoMatcher())
                                         .Add(new ClientInfoMatchedPccPatientsClientAdder())
+                                        .Add(new SimilarChecker())
+                                        .Add(new SimilarLogger())
                                         .Add(new NewClientsAdder())
+                                        .Add(new PccPatientClientUpdater())
                                         .Add(new AddUnmatchedToPccClientsStep())
                                         .Add(new ClientActiveAdder())
                                         .Add(new BedLogger()),
@@ -25,7 +28,8 @@ public class PipelineFactory : IPipelineFactory
             RunTypes.DISCHARGE_SYNC => new Pipeline<OurPatientModel>()
                                             .AddDataGetter(new PccDischargedPatientsDataGetter())
                                             .Add(new ClientsInfoMatcher())
-                                            .Add(new ClientActiveDischarger())
+                                            .Add(new ClientActiveDischarger()),
+            _ => throw new NotImplementedException()
         };
     }
 }

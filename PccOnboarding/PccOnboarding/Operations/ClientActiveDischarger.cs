@@ -10,7 +10,7 @@ namespace PccOnboarding.Operations;
 
 public class ClientActiveDischarger : IOperation
 {
-    public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
+    public async Task<List<OurPatientModel>> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
         var table = context.Set<ClientActiveTable>();
 
@@ -30,7 +30,7 @@ public class ClientActiveDischarger : IOperation
             }
 
         }
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         //context.SaveChanges();
         return patientsList;
     }

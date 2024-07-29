@@ -11,11 +11,12 @@ namespace PccOnboarding.Utils
         private const string pathToCertificate = "C:\\Users\\MosheYehudaSznicer\\Desktop\\SuppCareApp.pfx";
 
         private const string privateKeyPassphrase = "27Randolph";
-
-        private const string auth_password = "Jx3U4LfMh3nYb1YO";
-
-        private const string auth_cl_id = "wrLmehEJwBJrL7XYn8CboLLsYsKnbW44";
-
+        //! only for sandbox use 
+        //private const string auth_password = "Jx3U4LfMh3nYb1YO";
+        //private const string auth_cl_id = "wrLmehEJwBJrL7XYn8CboLLsYsKnbW44";
+        //! Only for production use
+        private const string auth_password = "uA8wTxiroRNmYXG5";
+        private const string auth_cl_id = "LxGhD5OHvAS2bSjCOh9lN5AoFBoVJYf7";
         public static async Task<string> Get()
         {
             var url = "https://connect2.pointclickcare.com/auth/token";

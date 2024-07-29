@@ -8,27 +8,30 @@ namespace PccOnboarding.Operations;
 
 public class PccPatientsClientMatcher : IOperation
 {
-    public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
+    public async Task<List<OurPatientModel>> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
         LogFile.Write("Matching to PccPatientsClients Table...\n");
 
         //Gets all the patients from the pccPatientsClientsTable
-        var data = context.Set<PccPatientsClientTable>().ToList();
-        // This code block uses LINQ to filter the patientsList based on the absence of matching records in the data list.
-        // It checks each patient in patientsList against each record in data to see if they have the same FirstName, LastName, OrgUuid, FacId, BirthDate, and PatientId.
-        // If a match is not found, the patient is added to the unmatchedData list.
+        var data = await context.Set<PccPatientsClientTable>().ToListAsync();
+
+
         foreach (var patient in patientsList)
         {
             var match = data.FirstOrDefault(d =>
-                patient.FirstName == d.FirstName &&
-                patient.LastName == d.LastName &&
-                patient.OrgUuid == d.OrgUid &&
-                patient.FacId == d.FacilityId.ToString() &&
-                Convert.ToDateTime(patient.BirthDate).ToString() == Convert.ToDateTime(d.PccDob.ToString()).ToString() &&
+                //* took this out because we can just compare the ids and not the names this will be more acurrate 
+                // patient.FirstName == d.FirstName &&
+                // patient.LastName == d.LastName &&
+                // patient.OrgUuid == d.OrgUid &&
+                // patient.FacId == d.FacilityId.ToString() &&
+                // Convert.ToDateTime(patient.BirthDate).ToString() == Convert.ToDateTime(d.PccDob.ToString()).ToString() &&
                 patient.PatientId.ToString() == d.PccId.ToString()
             );
+            //* set the matched to true
             if (match != null)
             {
+                match.FirstName = patient.FirstName;
+                match.LastName = patient.LastName;
                 patient.PccMatched = true;
             }
         }

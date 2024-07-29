@@ -4,7 +4,8 @@ namespace PccOnboarding.Models.Our;
 
 public class OurPatientModel : PccPatientsModel
 {
-    public bool IsNewClient { get; set; } = false;
+    public bool IsSimilar { get; set; }
+    public int? SimilarPatientId { get; set; }
     public int? OurFacId { get; set; }
     public int? OurPatientId { get; set; }
     public bool PccMatched { get; set; } = false;

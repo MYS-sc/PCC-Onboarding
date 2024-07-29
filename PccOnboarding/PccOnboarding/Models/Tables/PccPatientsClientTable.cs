@@ -31,5 +31,11 @@ namespace PccOnboarding.Models.Tables
         public int? PccNA { get; set; }
         [Column("pcc_dob")]
         public DateTime? PccDob { get; set; }
+        //!Make sure to take out in production THIS IS FOR TESTING ONLY
+        [Column("testClient")]
+        public bool? IsTestClient { get; set; }
+        //!Make sure to take out in production THIS IS FOR TESTING ONLY
+        [Column("testUpdate")]
+        public bool? TestUpdate { get; set; }
     }
 }

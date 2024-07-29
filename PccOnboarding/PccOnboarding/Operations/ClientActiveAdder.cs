@@ -11,10 +11,12 @@ namespace PccOnboarding.Operations;
 
 public class ClientActiveAdder : IOperation
 {
-    public List<OurPatientModel> Execute(List<OurPatientModel> patientsList, DbContext context)
+    public async Task<List<OurPatientModel>> Execute(List<OurPatientModel> patientsList, DbContext context)
     {
-        LogFile.Write("Adding or Updating Client Active Table...");
-        var table = context.Set<ClientActiveTable>();
+
+
+        LogFile.Write("Adding or Updating Client Active Table...\n");
+        var table = await context.Set<ClientActiveTable>().ToListAsync();
         foreach (var patient in patientsList)
         {
 
@@ -28,9 +30,10 @@ public class ClientActiveAdder : IOperation
             {
                 foreach (var m in matches)
                 {
-                    if (m.AdmissionDate == Convert.ToDateTime(patient.AdmissionDate))
+                    var clientInfo = await context.Set<ClientInfoTable>().FirstOrDefaultAsync(x => x.ClientId == m.ClientInfoId);
+                    if (clientInfo?.FacilityId == patient.OurFacId)
                     {
-                        LogFile.Write($"Updating OurPatientId: {patient.OurPatientId}\n");
+                        LogFile.Write($"Updating OurPatientId: {patient.OurPatientId}");
                         m.Bed = patient.BedDesc;
                         m.Room = patient.RoomDesc;
                         m.Floor = patient.FloorDesc;
@@ -48,7 +51,7 @@ public class ClientActiveAdder : IOperation
             }
 
         Adder:
-            LogFile.Write($"Adding OurPatientId: {patient.OurPatientId}\n");
+            LogFile.Write($"Adding OurPatientId: {patient.OurPatientId}");
             ClientActiveTable clientActiveOne = new ClientActiveTable
             {
                 ClientInfoId = patient.OurPatientId,
@@ -73,12 +76,12 @@ public class ClientActiveAdder : IOperation
                 OurFacilityId = patient.OurFacId,
 
             };
-            context.Add(clientActiveOne);
-            context.Add(clientActiveTwo);
+            await context.AddAsync(clientActiveOne);
+            await context.AddAsync(clientActiveTwo);
 
 
         }
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         LogFile.WriteWithBreak("Done adding or updating Client Active Table");
         //context.SaveChanges();
         return patientsList;
