@@ -21,9 +21,9 @@ ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
 
 
-string orgId = "785e6a7d-206b-4421-b037-7a205c1d8e28";
+string? orgId = "785e6a7d-206b-4421-b037-7a205c1d8e28";
 int facId = 22;
-string state = "PA";
+string? state = "PA";
 //TODO should put this all in its own class
 //* sets all the variables that we will need from the user 
 string runType;
@@ -67,7 +67,7 @@ while (true)
 
         Console.WriteLine("Facility not found Please try again");
 }
-
+LogFile.SetPath(state, orgId, facId);
 LogFile.Write($"StartTime: {DateTime.Now}");
 Console.WriteLine(dbContext.GetType().Name);
 //* Get the right pipeline that we need Onboarding or Discharge

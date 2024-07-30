@@ -23,6 +23,7 @@ public class PipelineFactory : IPipelineFactory
                                         .Add(new PccPatientClientUpdater())
                                         .Add(new AddUnmatchedToPccClientsStep())
                                         .Add(new ClientActiveAdder())
+                                        .Add(new ClientInfoUpdater())
                                         .Add(new BedLogger()),
 
             RunTypes.DISCHARGE_SYNC => new Pipeline<OurPatientModel>()

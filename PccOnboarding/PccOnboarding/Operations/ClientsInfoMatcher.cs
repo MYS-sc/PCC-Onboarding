@@ -33,8 +33,7 @@ public class ClientsInfoMatcher : IOperation
             {
                 patient.ClientInfoMatched = true;
                 patient.OurPatientId = match.ClientId;
-                //*Updates the facility id in the client info table
-                //match.FacilityId = patient.OurFacId;
+                //! we dont want to update the facility here because we need it later
             }
         }
         //~ FirstName LastName[0]
@@ -52,8 +51,7 @@ public class ClientsInfoMatcher : IOperation
             {
                 patient.ClientInfoMatched = true;
                 patient.OurPatientId = match.ClientId;
-                //*Updates the facility id in the client info table
-                //match.FacilityId = patient.OurFacId;
+
             }
         }
         //~ FirstName[0] LastName
@@ -69,8 +67,6 @@ public class ClientsInfoMatcher : IOperation
             {
                 patient.ClientInfoMatched = true;
                 patient.OurPatientId = match.ClientId;
-                //*Updates the facility id in the client info table
-                //match.FacilityId = patient.OurFacId;
             }
         }
         //~ FirstName[0] LastName[0]
@@ -89,8 +85,6 @@ public class ClientsInfoMatcher : IOperation
             {
                 patient.ClientInfoMatched = true;
                 patient.OurPatientId = match.ClientId;
-                //*Updates the facility id in the client info table
-                //match.FacilityId = patient.OurFacId;
             }
         }
         //~ FirstName[1] LastName
@@ -109,8 +103,6 @@ public class ClientsInfoMatcher : IOperation
             {
                 patient.ClientInfoMatched = true;
                 patient.OurPatientId = match.ClientId;
-                //*Updates the facility id in the client info table
-                //match.FacilityId = patient.OurFacId;
             }
         }
         //~ FirstName[1] LastName[0]
@@ -129,8 +121,6 @@ public class ClientsInfoMatcher : IOperation
             {
                 patient.ClientInfoMatched = true;
                 patient.OurPatientId = match.ClientId;
-                //*Updates the facility id in the client info table
-                //match.FacilityId = patient.OurFacId;
             }
         }
 

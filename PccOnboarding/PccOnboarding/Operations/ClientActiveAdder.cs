@@ -19,18 +19,31 @@ public class ClientActiveAdder : IOperation
         var table = await context.Set<ClientActiveTable>().ToListAsync();
         foreach (var patient in patientsList)
         {
-
-            var matches = table.Where(x => x.ClientInfoId == patient.OurPatientId && x.DischargeDate == null);
-            if (matches.Count() == 0)
+            var clientInfo = await context.Set<ClientInfoTable>().FirstOrDefaultAsync(x => x.ClientId == patient.OurPatientId);
+            var haveRecord = table.Where(x => x.ClientInfoId == patient.OurPatientId);
+            if (haveRecord.Count() == 0)
             {
                 goto Adder;
             }
+            var matches = table.Where(x => x.ClientInfoId == patient.OurPatientId && x.DischargeDate == null);
+            //this checks to see if he was discharge by use and not pcc
+            if (clientInfo?.FacilityId == patient.OurFacId && matches.Count() == 0)
+            {
+                LogFile.Write($"------------did not update OurPatientId: {patient.OurPatientId}");
+                continue;
+            }
+
+            //var matches = table.Where(x => x.ClientInfoId == patient.OurPatientId && x.DischargeDate == null);
+            // if (matches.Count() == 0)
+            // {
+            //     goto Adder;
+            // }
 
             if (matches.Count() > 0)
             {
                 foreach (var m in matches)
                 {
-                    var clientInfo = await context.Set<ClientInfoTable>().FirstOrDefaultAsync(x => x.ClientId == m.ClientInfoId);
+                    //var clientInfo = await context.Set<ClientInfoTable>().FirstOrDefaultAsync(x => x.ClientId == m.ClientInfoId);
                     if (clientInfo?.FacilityId == patient.OurFacId)
                     {
                         LogFile.Write($"Updating OurPatientId: {patient.OurPatientId}");
@@ -40,6 +53,7 @@ public class ClientActiveAdder : IOperation
                         m.OurFacilityId = patient.OurFacId;
                         continue;
                     }
+                    m.OurFacilityId = clientInfo?.FacilityId;
                     m.DischargeDate = Convert.ToDateTime(patient.AdmissionDate).AddDays(-1);
                     m.TerminationType = TerminationTypesConsts.READMIT_DISCHARGE;
                 }
