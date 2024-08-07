@@ -13,6 +13,7 @@ public class ClientsInfoMatcher : IOperation
         LogFile.Write("Matching PCC patients to ClientsInfoTable...\n");
 
 
+
         var ourClients = await context.Set<ClientInfoTable>().ToListAsync();//.Where(x => x.FacilityId == 3);
         if (ourClients.Count == 0)
         {
@@ -24,15 +25,19 @@ public class ClientsInfoMatcher : IOperation
         //~ FirstName LastName 
         foreach (var patient in patientsList)
         {
+            if (patient.OutPatient)
+            {
+                LogFile.Write($"Outpatient - PccId: {patient.PatientId,-10} - FirstName: {patient.FirstName,-10} - LastName: {patient.LastName,-10} - pccId: {patient.SupCarePatientId,-10}\n");
+            }
             var match = ourClients.FirstOrDefault(ourClient =>
-                                    ourClient.OurFirstName?.Trim().ToUpper() == patient.FirstName?.Trim().ToUpper() &&
-                                    ourClient.LastName?.Trim().ToUpper() == patient.LastName?.Trim().ToUpper() &&
+                                    ourClient.SupCareFirstName?.Trim().ToUpper() == patient.FirstName?.Trim().ToUpper() &&
+                                    ourClient.SupCareLastName?.Trim().ToUpper() == patient.LastName?.Trim().ToUpper() &&
                                     ourClient.DateOfBirth.ToString() == patient.BirthDate);
             //* if its a matche we update the pcc list to show that this one is a match and set the clientId to have if for othersteps
             if (match != null)
             {
                 patient.ClientInfoMatched = true;
-                patient.OurPatientId = match.ClientId;
+                patient.SupCarePatientId = match.SupCareCleintId;
                 //! we dont want to update the facility here because we need it later
             }
         }
@@ -40,9 +45,9 @@ public class ClientsInfoMatcher : IOperation
         foreach (var patient in patientsList)
         {
             var match = ourClients.FirstOrDefault(ourClient =>
-                                    ourClient.OurFirstName?.Trim().ToUpper() == patient.FirstName?.Trim().ToUpper() &&
+                                    ourClient.SupCareFirstName?.Trim().ToUpper() == patient.FirstName?.Trim().ToUpper() &&
 
-                                    ourClient.LastName?.Split(' ', 2)[0].Trim().ToUpper() == patient.LastName.Split(' ', 2)[0].Trim().ToUpper() &&
+                                    ourClient.SupCareLastName?.Split(' ', 2)[0].Trim().ToUpper() == patient.LastName.Split(' ', 2)[0].Trim().ToUpper() &&
 
                                     (ourClient.DateOfBirth == null ? Convert.ToDateTime("1/1/1990").ToString() : ourClient.DateOfBirth.ToString()) == (patient.BirthDate == null ? Convert.ToDateTime("1/1/1990").ToString() : Convert.ToDateTime(patient.BirthDate).ToString())
                                     );
@@ -50,7 +55,7 @@ public class ClientsInfoMatcher : IOperation
             if (match != null)
             {
                 patient.ClientInfoMatched = true;
-                patient.OurPatientId = match.ClientId;
+                patient.SupCarePatientId = match.SupCareCleintId;
 
             }
         }
@@ -58,24 +63,24 @@ public class ClientsInfoMatcher : IOperation
         foreach (var patient in patientsList)
         {
             var match = ourClients.FirstOrDefault(ourClient =>
-                                    ourClient.OurFirstName?.Split(' ', 2)[0].Trim().ToUpper() == patient.FirstName?.Split(' ', 2)[0].Trim().ToUpper() &&
-                                    ourClient.LastName?.Trim()?.Trim().ToUpper() == patient.LastName.Trim().ToUpper() &&
+                                    ourClient.SupCareFirstName?.Split(' ', 2)[0].Trim().ToUpper() == patient.FirstName?.Split(' ', 2)[0].Trim().ToUpper() &&
+                                    ourClient.SupCareLastName?.Trim()?.Trim().ToUpper() == patient.LastName.Trim().ToUpper() &&
                                     (ourClient.DateOfBirth == null ? Convert.ToDateTime("1/1/1990").ToString() : ourClient.DateOfBirth.ToString()) == (patient.BirthDate == null ? Convert.ToDateTime("1/1/1990").ToString() : Convert.ToDateTime(patient.BirthDate).ToString())
                                     );
             //* if its a matche we update the pcc list to show that this one is a match and set the clientId to have if for othersteps
             if (match != null)
             {
                 patient.ClientInfoMatched = true;
-                patient.OurPatientId = match.ClientId;
+                patient.SupCarePatientId = match.SupCareCleintId;
             }
         }
         //~ FirstName[0] LastName[0]
         foreach (var patient in patientsList)
         {
             var match = ourClients.FirstOrDefault(ourClient =>
-                                    ourClient.OurFirstName?.Split(' ', 2)[0].Trim()?.ToUpper() == patient.FirstName?.Split(' ', 2)[0].Trim().ToUpper() &&
+                                    ourClient.SupCareFirstName?.Split(' ', 2)[0].Trim()?.ToUpper() == patient.FirstName?.Split(' ', 2)[0].Trim().ToUpper() &&
 
-                                    ourClient.LastName?.Split(' ', 2)[0].Trim().ToUpper() == patient.LastName?.Split(' ', 2)[0].Trim().ToUpper() &&
+                                    ourClient.SupCareLastName?.Split(' ', 2)[0].Trim().ToUpper() == patient.LastName?.Split(' ', 2)[0].Trim().ToUpper() &&
                                     (ourClient.DateOfBirth == null ? Convert.ToDateTime("1/1/1990").ToString() : ourClient.DateOfBirth.ToString()) == (patient.BirthDate == null ?
 
                                     Convert.ToDateTime("1/1/1990").ToString() : Convert.ToDateTime(patient.BirthDate).ToString())
@@ -84,16 +89,16 @@ public class ClientsInfoMatcher : IOperation
             if (match != null)
             {
                 patient.ClientInfoMatched = true;
-                patient.OurPatientId = match.ClientId;
+                patient.SupCarePatientId = match.SupCareCleintId;
             }
         }
         //~ FirstName[1] LastName
         foreach (var patient in patientsList)
         {
             var match = ourClients.FirstOrDefault(ourClient =>
-                                    (ourClient.OurFirstName?.Split(' ', 2).Length > 1 ? ourClient.OurFirstName?.Split(' ', 2)[1].Trim()?.ToUpper() : ourClient.OurFirstName) == (patient.FirstName?.Split(' ', 2).Length > 1 ? patient.FirstName?.Split(' ', 2)[1].Trim().ToUpper() : patient.FirstName) &&
+                                    (ourClient.SupCareFirstName?.Split(' ', 2).Length > 1 ? ourClient.SupCareFirstName?.Split(' ', 2)[1].Trim()?.ToUpper() : ourClient.SupCareFirstName) == (patient.FirstName?.Split(' ', 2).Length > 1 ? patient.FirstName?.Split(' ', 2)[1].Trim().ToUpper() : patient.FirstName) &&
 
-                                    ourClient.LastName?.Trim().ToUpper() == patient.LastName?.ToUpper() &&
+                                    ourClient.SupCareLastName?.Trim().ToUpper() == patient.LastName?.ToUpper() &&
                                     (ourClient.DateOfBirth == null ? Convert.ToDateTime("1/1/1990").ToString() : ourClient.DateOfBirth.ToString()) == (patient.BirthDate == null ?
 
                                     Convert.ToDateTime("1/1/1990").ToString() : Convert.ToDateTime(patient.BirthDate).ToString())
@@ -102,16 +107,16 @@ public class ClientsInfoMatcher : IOperation
             if (match != null)
             {
                 patient.ClientInfoMatched = true;
-                patient.OurPatientId = match.ClientId;
+                patient.SupCarePatientId = match.SupCareCleintId;
             }
         }
         //~ FirstName[1] LastName[0]
         foreach (var patient in patientsList)
         {
             var match = ourClients.FirstOrDefault(ourClient =>
-                                    (ourClient.OurFirstName?.Split(' ', 2).Length > 1 ? ourClient.OurFirstName?.Split(' ', 2)[1].Trim()?.ToUpper() : ourClient.OurFirstName) == (patient.FirstName?.Split(' ', 2).Length > 1 ? patient.FirstName?.Split(' ', 2)[1].Trim().ToUpper() : patient.FirstName) &&
+                                    (ourClient.SupCareFirstName?.Split(' ', 2).Length > 1 ? ourClient.SupCareFirstName?.Split(' ', 2)[1].Trim()?.ToUpper() : ourClient.SupCareFirstName) == (patient.FirstName?.Split(' ', 2).Length > 1 ? patient.FirstName?.Split(' ', 2)[1].Trim().ToUpper() : patient.FirstName) &&
 
-                                    ourClient.LastName?.Split(' ', 2)[0].Trim().ToUpper() == patient.LastName?.Split(' ', 2)[0].Trim().ToUpper() &&
+                                    ourClient.SupCareLastName?.Split(' ', 2)[0].Trim().ToUpper() == patient.LastName?.Split(' ', 2)[0].Trim().ToUpper() &&
                                     (ourClient.DateOfBirth == null ? Convert.ToDateTime("1/1/1990").ToString() : ourClient.DateOfBirth.ToString()) == (patient.BirthDate == null ?
 
                                     Convert.ToDateTime("1/1/1990").ToString() : Convert.ToDateTime(patient.BirthDate).ToString())
@@ -120,8 +125,15 @@ public class ClientsInfoMatcher : IOperation
             if (match != null)
             {
                 patient.ClientInfoMatched = true;
-                patient.OurPatientId = match.ClientId;
+                patient.SupCarePatientId = match.SupCareCleintId;
             }
+        }
+
+        var matchedOutpatients = patientsList.Where(x => x.ClientInfoMatched == true && x.OutPatient).ToList();
+        LogFile.WriteWithBreak($"Found Matched Outpatients: {matchedOutpatients.Count,-10}");
+        foreach (var patient in matchedOutpatients)
+        {
+            LogFile.Write($"outpatient match: {patient.FirstName,-10} {patient.LastName,-10} {patient.BirthDate,-10} {patient.OutPatient,-10}");
         }
 
         var matchedAmount = patientsList.Count(x => x.ClientInfoMatched == true);

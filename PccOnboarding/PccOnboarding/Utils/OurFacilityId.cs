@@ -8,8 +8,8 @@ public class OurFacilityId
 {
     public async Task<int?> Get(string orgId, int pccFacId, DbContext context)
     {
-        var response = context.Set<PccFacilitiesTable>().FirstOrDefault(f => f.OrgUuid == orgId && f.PccId == pccFacId);
-        return response != null ? response.FacilityId : null;
+        var response = context.Set<PccFacilitiesTable>().FirstOrDefault(f => f.OrgUuid == orgId && f.PccFacId == pccFacId);
+        return response != null ? response.SupCareFacId : null;
     }
 
 }

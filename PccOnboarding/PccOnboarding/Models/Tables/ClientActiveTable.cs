@@ -10,7 +10,7 @@ public class ClientActiveTable
     [Column("cl_active_id")]
     public int? ClientActiveTableId { get; set; }
     [Column("cl_id")]
-    public int? ClientInfoId { get; set; }
+    public int? SupCareClientId { get; set; }
     [Column("svce_type_id")]
     public int? ServiceType { get; set; }
     [Column("cl_active_dte")]
@@ -20,7 +20,7 @@ public class ClientActiveTable
     [Column("cl_active_end_dte")]
     public DateTime? DischargeDate { get; set; }
     [Column("facility_id")]
-    public int? OurFacilityId { get; set; }
+    public int? SupCareFacId { get; set; }
     [Column("room_num")]
     public string? Room { get; set; }
     [Column("bed_num")]

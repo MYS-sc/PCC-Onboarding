@@ -15,7 +15,7 @@ public class BedLogsTable
     [Column("state")]
     public string? State { get; set; }
     [Column("ClientId")]
-    public int? ClientId { get; set; }
+    public int? SupCareClientId { get; set; }
     [Column("pccId")]
     public int? PccId { get; set; }
     [Column("bedId")]

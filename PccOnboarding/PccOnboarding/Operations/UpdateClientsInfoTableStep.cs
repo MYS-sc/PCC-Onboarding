@@ -20,7 +20,7 @@ public class UpdateClientsInfoTableStep
         foreach (var client in matched)
         {
             //--Getting the pcc client from our client table
-            var response = context.Set<ClientInfoTable>().First(c => c.ClientId == client.OurPatientId);
+            var response = context.Set<ClientInfoTable>().First(c => c.SupCareCleintId == client.SupCarePatientId);
 
             //--Saving the old facility id for logging reasons
             var oldFac = response.FacilityId;
@@ -29,7 +29,7 @@ public class UpdateClientsInfoTableStep
             response.FacilityId = ourFacilityId;
 
             //--Logging out all the changes to the console
-            LogFile.Write($"Updated - ID: {client.OurFacId,-10} firstName: {client.FirstName,-10} lastname: {client.LastName,-10} FromFacility: {oldFac,-5} ToFacility: {ourFacilityId,-5}");
+            LogFile.Write($"Updated - ID: {client.SupCareFacId,-10} firstName: {client.FirstName,-10} lastname: {client.LastName,-10} FromFacility: {oldFac,-5} ToFacility: {ourFacilityId,-5}");
         }
         //--Saving the changes
         context.SaveChanges();

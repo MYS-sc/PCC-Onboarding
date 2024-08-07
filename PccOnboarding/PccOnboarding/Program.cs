@@ -68,6 +68,10 @@ while (true)
         Console.WriteLine("Facility not found Please try again");
 }
 LogFile.SetPath(state, orgId, facId);
+//!for testing only take out for production
+TestFileLogger.SetPath(state, orgId, facId);
+//!
+
 LogFile.Write($"StartTime: {DateTime.Now}");
 Console.WriteLine(dbContext.GetType().Name);
 //* Get the right pipeline that we need Onboarding or Discharge

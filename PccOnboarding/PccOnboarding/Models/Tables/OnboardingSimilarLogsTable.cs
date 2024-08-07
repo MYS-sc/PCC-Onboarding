@@ -23,9 +23,9 @@ public class OnboardingSimilarLogsTable
     [Column("dateOfBirth")]
     public string? DateOfBirth { get; set; }
     [Column("ourId")]
-    public int? OurId { get; set; }
+    public int? SupCarePatientId { get; set; }
     [Column("ourFacId")]
-    public int? OurFacId { get; set; }
+    public int? SupCareFacId { get; set; }
     [Column("state")]
     public string State { get; set; }
     [Column("reviewed")]

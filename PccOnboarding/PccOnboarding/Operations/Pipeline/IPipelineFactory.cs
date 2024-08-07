@@ -5,5 +5,5 @@ namespace PccOnboarding.Operations;
 
 public interface IPipelineFactory
 {
-    Pipeline<OurPatientModel> Create(string runType);
+    Pipeline Create(string runType);
 }

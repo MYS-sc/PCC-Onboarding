@@ -22,7 +22,7 @@ public class BedLogger : IOperation
             {
 
                 LastChangedDate = DateTime.Now.ToString(),
-                ClientId = patient.OurPatientId,
+                SupCareClientId = patient.SupCarePatientId,
                 State = patient.State,
                 PccId = patient.PatientId,
                 BedDescription = patient.BedDesc,

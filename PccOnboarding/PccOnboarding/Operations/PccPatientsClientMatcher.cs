@@ -30,6 +30,11 @@ public class PccPatientsClientMatcher : IOperation
             //* set the matched to true
             if (match != null)
             {
+                if (match.SupCareClientId != null)
+                {
+                    patient.ClientInfoMatched = true;
+                    patient.SupCarePatientId = match.SupCareClientId;
+                }
                 match.FirstName = patient.FirstName;
                 match.LastName = patient.LastName;
                 patient.PccMatched = true;

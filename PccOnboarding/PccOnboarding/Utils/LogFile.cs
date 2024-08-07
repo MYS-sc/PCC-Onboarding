@@ -2,7 +2,7 @@
 
 static class LogFile
 {
-    private static string _basePath = @"C:\Users\MosheYehudaSznicer\Desktop\PccOnboardinglogs";
+    private static string _basePath = @"C:\Users\MosheYehudaSznicer\Desktop\Work\Logs\PccOnboardinglogs";
     private static string _currentPath = "";
 
     private static string _date = DateTime.Now.ToString("yyyy-MM-dd_HH-mm");

@@ -67,7 +67,13 @@ public class PccCurrentPatientsDataGetter : IDataGetter
             }
             foreach (var item in list.Data)
             {
-                item.OurFacId = _ourFacId;
+
+                if (item.BedDesc == null && item.FloorDesc == null && item.RoomDesc == null)
+                {
+                    LogFile.WriteWithBreak($"Patient {item.PatientId} has no bed assigned");
+                    continue;
+                }
+                item.SupCareFacId = _ourFacId;
                 item.State = _state;
                 //Adds each PatientModel to a list that i can call this function recursivly
                 _patientsList?.Add(item);

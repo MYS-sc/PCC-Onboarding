@@ -25,9 +25,9 @@ public class PccPatientClientUpdater : IOperation
             if (clientInfo != null)
             {
 
-                clientInfo.ClientId = patient.OurPatientId;
+                clientInfo.SupCareClientId = patient.SupCarePatientId;
                 clientInfo.TestUpdate = true;
-                LogFile.Write($"Updated Patient - PccId: {patient.PatientId,-10} - FirstName: {patient.FirstName,-10} - LastName: {patient.LastName,-10} - OurPatientId: {patient.OurPatientId,-10}");
+                LogFile.Write($"Updated Patient - PccId: {patient.PatientId,-10} - FirstName: {patient.FirstName,-10} - LastName: {patient.LastName,-10} - OurPatientId: {patient.SupCarePatientId,-10}");
             }
 
         }

@@ -67,7 +67,7 @@ public class PccDischargedPatientsDataGetter : IDataGetter
             }
             foreach (var item in list.Data)
             {
-                item.OurFacId = _ourFacId;
+                item.SupCareFacId = _ourFacId;
                 item.State = _state;
                 //Adds each PatientModel to a list that i can call this function recursivly
                 _patientsList?.Add(item);

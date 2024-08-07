@@ -30,7 +30,7 @@ public class SimilarLogger : IOperation
                 LastName = similar.LastName,
                 DateOfBirth = similar.BirthDate,
                 //OurId = similar.OurPatientId,
-                OurFacId = similar.OurFacId,
+                SupCareFacId = similar.SupCareFacId,
                 State = similar.State,
                 SimilarPatientId = similar.SimilarPatientId
 

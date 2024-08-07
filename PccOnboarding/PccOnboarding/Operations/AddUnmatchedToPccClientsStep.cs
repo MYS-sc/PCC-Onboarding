@@ -28,7 +28,7 @@ public class AddUnmatchedToPccClientsStep : IOperation
                 FirstName = match.FirstName,
                 LastName = match.LastName,
                 PccDob = Convert.ToDateTime(match.BirthDate),
-                ClientId = match.OurPatientId,
+                SupCareClientId = match.SupCarePatientId,
                 OrgUid = match.OrgUuid,
                 PccId = match.PatientId,
                 FacilityId = int.Parse(match.FacId),
@@ -39,7 +39,7 @@ public class AddUnmatchedToPccClientsStep : IOperation
             context?.Set<PccPatientsClientTable>().AddAsync(pccClient);
 
 
-            LogFile.Write($"Added PccPatientsClients - FirstName: {match.FirstName,-15} LastName: {match.LastName,-15} Id:{match.OurPatientId,-10} pccId:{match.PatientId,-10}");
+            LogFile.Write($"Added PccPatientsClients - FirstName: {match.FirstName,-15} LastName: {match.LastName,-15} Id:{match.SupCarePatientId,-10} pccId:{match.PatientId,-10}");
 
         }
         await context?.SaveChangesAsync();

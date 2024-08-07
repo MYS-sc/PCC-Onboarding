@@ -8,11 +8,11 @@ namespace PccOnboarding;
 public class PipelineFactory : IPipelineFactory
 {
 
-    public Pipeline<OurPatientModel> Create(string runType)
+    public Pipeline Create(string runType)
     {
         return runType switch
         {
-            RunTypes.ONBOARDING => new Pipeline<OurPatientModel>()
+            RunTypes.ONBOARDING => new Pipeline()
                                         .AddDataGetter(new PccCurrentPatientsDataGetter())
                                         .Add(new PccPatientsClientMatcher())
                                         .Add(new ClientsInfoMatcher())
@@ -24,12 +24,13 @@ public class PipelineFactory : IPipelineFactory
                                         .Add(new AddUnmatchedToPccClientsStep())
                                         .Add(new ClientActiveAdder())
                                         .Add(new ClientInfoUpdater())
+                                        .Add(new TestLogger())
                                         .Add(new BedLogger()),
 
-            RunTypes.DISCHARGE_SYNC => new Pipeline<OurPatientModel>()
-                                            .AddDataGetter(new PccDischargedPatientsDataGetter())
-                                            .Add(new ClientsInfoMatcher())
-                                            .Add(new ClientActiveDischarger()),
+            RunTypes.DISCHARGE_SYNC => new Pipeline()
+                                        .AddDataGetter(new PccDischargedPatientsDataGetter())
+                                        .Add(new PccPatientsClientMatcher())
+                                        .Add(new ClientActiveDischarger()),
             _ => throw new NotImplementedException()
         };
     }

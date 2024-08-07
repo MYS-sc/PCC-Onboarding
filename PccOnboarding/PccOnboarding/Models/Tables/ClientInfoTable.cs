@@ -13,15 +13,15 @@ namespace PccOnboarding.Models.Tables
     {
         [Key]
         [Column("ClientId")]
-        public int? ClientId { get; set; }
+        public int? SupCareCleintId { get; set; }
         [Column("Medicare #")]
         public string? MedicareNum { get; set; }
         [Column("ClientStatus")]
         public string? ClientStatus { get; set; }
         [Column("LastName")]
-        public string? LastName { get; set; }
+        public string? SupCareLastName { get; set; }
         [Column("FirstName")]
-        public string? OurFirstName { get; set; }
+        public string? SupCareFirstName { get; set; }
         [Column("DateOfbirth")]
         public DateTime? DateOfBirth { get; set; }
         [Column("MedIcaid/Insurance #")]

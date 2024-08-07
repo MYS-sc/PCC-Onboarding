@@ -16,7 +16,7 @@ namespace PccOnboarding.Models.Tables
         [Column("pcc_client_id")]
         public int? PccClientId { get; set; }
         [Column("cl_id")]
-        public int? ClientId { get; set; }
+        public int? SupCareClientId { get; set; }
         [Column("first_name")]
         public string? FirstName { get; set; }
         [Column("last_name")]

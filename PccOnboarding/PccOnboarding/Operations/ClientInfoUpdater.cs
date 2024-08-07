@@ -12,8 +12,11 @@ public class ClientInfoUpdater : IOperation
         //var notMatched = patientList.Where(p => p.ClientInfoMatched == false).ToList();
         foreach (var patient in matched)
         {
-            var client = context.Set<ClientInfoTable>().First(c => c.ClientId == patient.OurPatientId);
-            client.FacilityId = patient.OurFacId;
+            if (patient.SupCarePatientId != null)
+            {
+                var client = await context.Set<ClientInfoTable>().FirstAsync(c => c.SupCareCleintId == patient.SupCarePatientId);
+                client.FacilityId = patient.SupCareFacId;
+            }
         }
         await context.SaveChangesAsync();
         return patientList;

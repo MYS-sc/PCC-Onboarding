@@ -24,11 +24,11 @@ public class NewClientsAdder : IOperation
         {
             var patient = new ClientInfoTable
             {
-                OurFirstName = nm.FirstName?.ToLower(),
-                LastName = nm.LastName?.ToLower(),
+                SupCareFirstName = nm.FirstName?.ToLower(),
+                SupCareLastName = nm.LastName?.ToLower(),
                 DateOfBirth = nm.BirthDate == null ? null : Convert.ToDateTime(nm.BirthDate),
                 Gender = nm.Gender,
-                FacilityId = nm.OurFacId,
+                FacilityId = nm.SupCareFacId,
                 MaritalSatus = nm.MaritalStatus,
                 //!test only take out in production
                 Diagnosis3 = "Test_MY"
@@ -39,9 +39,9 @@ public class NewClientsAdder : IOperation
             //* need to save changes to get the new id that was just assigned By the database
             await context.SaveChangesAsync();
             //* get the new id that was just assigned to the new clientinfo input aka ourIdma
-            nm.OurPatientId = patient.ClientId;
+            nm.SupCarePatientId = patient.SupCareCleintId;
 
-            LogFile.Write($"Added To: ClientsInfoTable OurId: {patient.ClientId,-10} FirstName: {patient.OurFirstName,-15} LastName: {patient.LastName,-10} FacilityId: {patient.FacilityId,-10}");
+            LogFile.Write($"Added To: ClientsInfoTable OurId: {patient.SupCareCleintId,-10} FirstName: {patient.SupCareFirstName,-15} LastName: {patient.SupCareLastName,-10} FacilityId: {patient.FacilityId,-10}");
         }
 
         LogFile.BreakLine();

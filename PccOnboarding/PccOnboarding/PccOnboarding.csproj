@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Constants\" />
+    <Folder Include="Operations\AdmitOperations\" />
     <Folder Include="Operations\DataGetters\" />
     <Folder Include="Operations\Interfaces\" />
   </ItemGroup>

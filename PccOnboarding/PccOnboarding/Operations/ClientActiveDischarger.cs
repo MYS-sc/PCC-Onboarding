@@ -16,7 +16,7 @@ public class ClientActiveDischarger : IOperation
 
         foreach (var patient in patientsList)
         {
-            var match = table.Where(table => table.ClientInfoId == patient.OurPatientId && table.AdmissionDate == Convert.ToDateTime(patient.AdmissionDate) && table.DischargeDate == null);
+            var match = table.Where(table => table.SupCareClientId == patient.SupCarePatientId && table.AdmissionDate == Convert.ToDateTime(patient.AdmissionDate) && table.DischargeDate == null);
             foreach (var m in match)
             {
                 m.DischargeDate = Convert.ToDateTime(patient.DischargeDate);
